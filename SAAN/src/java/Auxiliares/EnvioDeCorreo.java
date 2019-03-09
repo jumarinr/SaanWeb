@@ -7,26 +7,20 @@ import javax.mail.internet.*;
 
 public class EnvioDeCorreo {
 
-    private final String MI_CORREO = "saan.unal@gmail.com";
-    private final String MI_CONTRA = "SAAN12345";
-    private final String SERVIDOR_SMTP = "smtp.gmail.com";
-    private final String PUERTO_ENVIO = "465";
-    private String mailReceptor;
-    private String asunto;
-    private String cuerpo;
+    public static final String MI_CORREO = "saan.unal@gmail.com";
+    public static final String MI_CONTRA = "SAAN12345";
+    public static final String SERVIDOR_SMTP = "smtp.gmail.com";
+    public static final String PUERTO_ENVIO = "465";
 
     //metodo que recibe y envia el email
-    public boolean EnvioDeMail(String mailReceptor, String asunto, String cuerpo) {
-        this.mailReceptor = mailReceptor;
-        this.asunto = asunto;
-        this.cuerpo = cuerpo;
+    public static boolean EnvioDeMail(String mailReceptor, String asunto, String cuerpo) {
         Properties props = new Properties();//propiedades a agragar
-        props.put("mail.smtp.user", this.MI_CORREO);//correo origen
-        props.put("mail.smtp.host", SERVIDOR_SMTP);//tipo de servidor
-        props.put("mail.smtp.port", PUERTO_ENVIO);//puesto de salida
+        props.put("mail.smtp.user", EnvioDeCorreo.MI_CORREO);//correo origen
+        props.put("mail.smtp.host", EnvioDeCorreo.SERVIDOR_SMTP);//tipo de servidor
+        props.put("mail.smtp.port", EnvioDeCorreo.PUERTO_ENVIO);//puesto de salida
         props.put("mail.smtp.starttls.enable", "true");//inicializar el servidor
         props.put("mail.smtp.auth", "true");//autentificacion
-        props.put("mail.smtp.socketFactory.port", PUERTO_ENVIO);//activar el puerto
+        props.put("mail.smtp.socketFactory.port", EnvioDeCorreo.PUERTO_ENVIO);//activar el puerto
         props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
         props.put("mail.smtp.socketFactory.fallback", "false");
         SecurityManager security = System.getSecurityManager();
@@ -35,10 +29,10 @@ public class EnvioDeCorreo {
             Session session = Session.getInstance(props, auth);//se inica una session
             // session.setDebug(true);
             MimeMessage msg = new MimeMessage(session);//se crea un objeto donde ira la estructura del correo
-            msg.setText(this.cuerpo);//seteo el cuerpo del mensaje
-            msg.setSubject(this.asunto);//setea asunto (opcional)
-            msg.setFrom(new InternetAddress(this.MI_CORREO));//agrega la la propiedad del correo origen
-            msg.addRecipient(Message.RecipientType.TO, new InternetAddress(this.mailReceptor));//agrega el destinatario
+            msg.setText(cuerpo);//seteo el cuerpo del mensaje
+            msg.setSubject(asunto);//setea asunto (opcional)
+            msg.setFrom(new InternetAddress(EnvioDeCorreo.MI_CORREO));//agrega la la propiedad del correo origen
+            msg.addRecipient(Message.RecipientType.TO, new InternetAddress(mailReceptor));//agrega el destinatario
             Transport.send(msg);//envia el mensaje
             return true;
         } catch (HeadlessException e) {
@@ -49,7 +43,7 @@ public class EnvioDeCorreo {
         return false;
     }//fin metodo enviaEmail
 
-    private class autentificadorSMTP extends javax.mail.Authenticator {
+    public static class autentificadorSMTP extends javax.mail.Authenticator {
 
         @Override
         public PasswordAuthentication getPasswordAuthentication() {
