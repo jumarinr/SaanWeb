@@ -1,9 +1,30 @@
 package Clases;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author Juan Pablo
  */
 public class Estudiante extends Persona{
+    
+    private List<Matricula> matriculas;
+
+    public Estudiante(String nombre, long identificacion, String correo, String clave) {
+        super(nombre, identificacion, correo, clave);
+        this.matriculas = new ArrayList<Matricula>();
+    }
+
+    public Estudiante(){
+    }
+
+    public List<Matricula> getMatriculas() {
+        return matriculas;
+    }
+
+    public void setMatriculas(List<Matricula> matriculas) {
+        this.matriculas = matriculas;
+    }
     
 }

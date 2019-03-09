@@ -15,10 +15,10 @@ public class Persona {
     }
 
     public Persona(String nombre, long identificacion, String correo, String clave) {
-        this.nombre = nombre;
-        this.identificacion = identificacion;
-        this.correo = correo;
-        this.clave = clave;
+        this.setNombre(nombre);
+        this.setIdentificacion(identificacion);
+        this.setCorreo(correo);
+        this.setClave(clave);
     }
     
 
