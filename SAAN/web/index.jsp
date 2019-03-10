@@ -5,6 +5,12 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="Auxiliares.*"%>
+<%@page import="Clases.*"%>
+<%
+    MensajesEspanol.AgregarDatos();
+    MensajesIngles.AgregarDatos();
+%>
 <!DOCTYPE html>
 <html>
     <head>
