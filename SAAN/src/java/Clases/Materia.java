@@ -14,6 +14,7 @@ import java.util.List;
  */
 public class Materia {
 
+    public static List<Materia> materias = new ArrayList<Materia>();
     private int id;
     private String nombre;
     private short creditos;

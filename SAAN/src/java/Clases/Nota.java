@@ -5,12 +5,16 @@
  */
 package Clases;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author Juan Pablo
  */
 public class Nota {
 
+    public static List<Nota> notas = new ArrayList<Nota>();
     private short porcentaje;
     private double valor;
     private String descripcion;

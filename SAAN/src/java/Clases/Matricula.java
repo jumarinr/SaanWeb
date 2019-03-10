@@ -14,6 +14,7 @@ import java.util.List;
  */
 public class Matricula {
 
+    public static List<Matricula> matriculas = new ArrayList<Matricula>();
     private double notaFinal;
     private short semestre;
     private Estudiante estudiante;

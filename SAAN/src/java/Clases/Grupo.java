@@ -9,6 +9,7 @@ import java.util.List;
  */
 public class Grupo {
 
+    public static List<Grupo> grupos = new ArrayList<Grupo>();
     private short numero;
     private Profesor profesor;
     private List<Matricula> matriculas;

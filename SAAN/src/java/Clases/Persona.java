@@ -1,11 +1,15 @@
 package Clases;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author Juan Pablo
  */
 public class Persona {
     
+    public static List<Persona> administradores = new ArrayList<Persona>();
     private String nombre;
     private long identificacion;
     private String correo;
@@ -60,5 +64,8 @@ public class Persona {
             this.clave = clave;
         }
     }
+    
+    
+    
     
 }

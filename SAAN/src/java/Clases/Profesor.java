@@ -9,6 +9,7 @@ import java.util.List;
  */
 public class Profesor extends Persona {
 
+    public static List<Profesor> profesores = new ArrayList<Profesor>();
     private List<Grupo> grupos;
 
     public Profesor() {

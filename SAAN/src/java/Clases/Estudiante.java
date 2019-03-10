@@ -9,6 +9,7 @@ import java.util.List;
  */
 public class Estudiante extends Persona {
 
+    public static List<Estudiante> estudiantes = new ArrayList<Estudiante>();
     private List<Matricula> matriculas;
 
     public Estudiante(String nombre, long identificacion, String correo, String clave) {
