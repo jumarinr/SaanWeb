@@ -13,7 +13,7 @@ import java.util.List;
  * @author Juan Pablo
  */
 public class Materia {
-    
+
     private int id;
     private String nombre;
     private short creditos;
@@ -34,7 +34,9 @@ public class Materia {
     }
 
     public void setId(int id) {
-        this.id = id;
+        if (id > 0) {
+            this.id = id;
+        }
     }
 
     public String getNombre() {
@@ -42,7 +44,9 @@ public class Materia {
     }
 
     public void setNombre(String nombre) {
-        this.nombre = nombre;
+        if (!nombre.equals("")) {
+            this.nombre = nombre;
+        }
     }
 
     public short getCreditos() {
@@ -50,7 +54,9 @@ public class Materia {
     }
 
     public void setCreditos(short creditos) {
-        this.creditos = creditos;
+        if (creditos > 0) {
+            this.creditos = creditos;
+        }
     }
 
     public List<Grupo> getGrupos() {
@@ -58,7 +64,9 @@ public class Materia {
     }
 
     public void setGrupos(List<Grupo> grupos) {
-        this.grupos = grupos;
+        if (grupos != null) {
+            this.grupos = grupos;
+        }
     }
-    
+
 }

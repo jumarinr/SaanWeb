@@ -7,8 +7,8 @@ import java.util.List;
  *
  * @author Juan Pablo
  */
-public class Estudiante extends Persona{
-    
+public class Estudiante extends Persona {
+
     private List<Matricula> matriculas;
 
     public Estudiante(String nombre, long identificacion, String correo, String clave) {
@@ -16,7 +16,7 @@ public class Estudiante extends Persona{
         this.matriculas = new ArrayList<Matricula>();
     }
 
-    public Estudiante(){
+    public Estudiante() {
     }
 
     public List<Matricula> getMatriculas() {
@@ -24,7 +24,9 @@ public class Estudiante extends Persona{
     }
 
     public void setMatriculas(List<Matricula> matriculas) {
-        this.matriculas = matriculas;
+        if (matriculas != null) {
+            this.matriculas = matriculas;
+        }
     }
-    
+
 }

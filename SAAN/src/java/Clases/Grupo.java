@@ -8,7 +8,7 @@ import java.util.List;
  * @author Juan Pablo
  */
 public class Grupo {
- 
+
     private short numero;
     private Profesor profesor;
     private List<Matricula> matriculas;
@@ -29,7 +29,9 @@ public class Grupo {
     }
 
     public void setNumero(short numero) {
-        this.numero = numero;
+        if (numero > 0) {
+            this.numero = numero;
+        }
     }
 
     public Profesor getProfesor() {
@@ -37,7 +39,9 @@ public class Grupo {
     }
 
     public void setProfesor(Profesor profesor) {
-        this.profesor = profesor;
+        if (profesor != null) {
+            this.profesor = profesor;
+        }
     }
 
     public List<Matricula> getMatriculas() {
@@ -45,7 +49,9 @@ public class Grupo {
     }
 
     public void setMatriculas(List<Matricula> matriculas) {
-        this.matriculas = matriculas;
+        if (matriculas != null) {
+            this.matriculas = matriculas;
+        }
     }
 
     public Materia getMateria() {
@@ -53,8 +59,9 @@ public class Grupo {
     }
 
     public void setMateria(Materia materia) {
-        this.materia = materia;
+        if (materia != null) {
+            this.materia = materia;
+        }
     }
-    
-    
+
 }

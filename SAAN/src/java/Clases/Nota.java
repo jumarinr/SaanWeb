@@ -10,7 +10,7 @@ package Clases;
  * @author Juan Pablo
  */
 public class Nota {
-    
+
     private short porcentaje;
     private double valor;
     private String descripcion;
@@ -33,7 +33,9 @@ public class Nota {
     }
 
     public void setPorcentaje(short porcentaje) {
-        this.porcentaje = porcentaje;
+        if (porcentaje > 0) {
+            this.porcentaje = porcentaje;
+        }
     }
 
     public double getValor() {
@@ -41,7 +43,9 @@ public class Nota {
     }
 
     public void setValor(double valor) {
-        this.valor = valor;
+        if (valor > 0) {
+            this.valor = valor;
+        }
     }
 
     public String getDescripcion() {
@@ -49,7 +53,9 @@ public class Nota {
     }
 
     public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+        if (!descripcion.equals("")) {
+            this.descripcion = descripcion;
+        }
     }
 
     public int getId() {
@@ -57,7 +63,9 @@ public class Nota {
     }
 
     public void setId(int id) {
-        this.id = id;
+        if (id > 0) {
+            this.id = id;
+        }
     }
 
     public Matricula getMatricula() {
@@ -65,10 +73,9 @@ public class Nota {
     }
 
     public void setMatricula(Matricula matricula) {
-        this.matricula = matricula;
+        if (matricula != null) {
+            this.matricula = matricula;
+        }
     }
 
-    
-    
-    
 }

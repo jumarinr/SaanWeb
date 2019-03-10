@@ -13,7 +13,7 @@ import java.util.List;
  * @author Juan Pablo
  */
 public class Matricula {
-    
+
     private double notaFinal;
     private short semestre;
     private Estudiante estudiante;
@@ -22,7 +22,7 @@ public class Matricula {
 
     public Matricula() {
     }
-    
+
     public Matricula(short semestre, Estudiante estudiante, Grupo grupo) {
         this.setSemestre(semestre);
         this.setEstudiante(estudiante);
@@ -36,7 +36,9 @@ public class Matricula {
     }
 
     public void setNotaFinal(double notaFinal) {
-        this.notaFinal = notaFinal;
+        if (notaFinal >= 0) {
+            this.notaFinal = notaFinal;
+        }
     }
 
     public short getSemestre() {
@@ -44,7 +46,9 @@ public class Matricula {
     }
 
     public void setSemestre(short semestre) {
-        this.semestre = semestre;
+        if (semestre > 0) {
+            this.semestre = semestre;
+        }
     }
 
     public Estudiante getEstudiante() {
@@ -52,7 +56,9 @@ public class Matricula {
     }
 
     public void setEstudiante(Estudiante estudiante) {
-        this.estudiante = estudiante;
+        if (estudiante != null) {
+            this.estudiante = estudiante;
+        }
     }
 
     public Grupo getGrupo() {
@@ -60,7 +66,9 @@ public class Matricula {
     }
 
     public void setGrupo(Grupo grupo) {
-        this.grupo = grupo;
+        if (grupo != null) {
+            this.grupo = grupo;
+        }
     }
 
     public List<Nota> getNotas() {
@@ -68,7 +76,9 @@ public class Matricula {
     }
 
     public void setNotas(List<Nota> notas) {
-        this.notas = notas;
+        if (notas != null) {
+            this.notas = notas;
+        }
     }
-    
+
 }
