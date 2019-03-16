@@ -13,13 +13,16 @@ import java.util.HashMap;
  */
 public class MensajesEspanol {
 
-    public static HashMap<String, String> espanol = new HashMap<String, String>();
-    
-    public static void AgregarDatos(){
-        MensajesEspanol.espanol.put("err", "Error");
-        MensajesEspanol.espanol.put("reg", "Registrado");
-        MensajesEspanol.espanol.put("usuInc", "Usuario o contraseña incorrecto");
-        MensajesEspanol.espanol.put("eli", "Eliminado");
-    }
+    public static HashMap<String, String> espanol = new HashMap<String, String>() {
+        {
+            put("err", "Error");
+            put("reg", "Registrado");
+            put("usuInc", "Usuario o contraseña incorrecto");
+            put("eli", "Eliminado");
+            put("recu", "Recuperación de contraseña");
+            put("codrecu", "Código de recuperación: ");
+            put("mod", "Modificado");
+        }
+    };
 
 }

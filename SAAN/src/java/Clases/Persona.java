@@ -1,5 +1,6 @@
 package Clases;
 
+import Auxiliares.EnvioDeCorreo;
 import Auxiliares.Mensajes;
 import java.util.ArrayList;
 import java.util.List;
@@ -108,6 +109,10 @@ public class Persona {
         if (Persona.buscarPersona(usuario.getIdentificacion()) != null) {
             return Mensajes.mensaje.get("err");
         }
+        if (usuario.getIdentificacion() == 0 || usuario.getNombre() == null
+                || usuario.getClave() == null || usuario.getCorreo() == null) {
+            return Mensajes.mensaje.get("err");
+        }
         if (usuario instanceof Profesor) {
             Profesor.profesores.add((Profesor) usuario);
         } else if (usuario instanceof Estudiante) {
@@ -135,7 +140,7 @@ public class Persona {
         }
         return -1;
     }
-    
+
     public static byte login(String correo, String clave) {
         Persona usuario = Persona.buscarPersona(correo);
         if (usuario.getClave().equals(clave)) {
@@ -150,32 +155,51 @@ public class Persona {
         return -1;
     }
 
-    public static String eliminar(long identificacion){
+    public static String eliminar(long identificacion) {
         Persona usuario = Persona.buscarPersona(identificacion);
-        if(usuario != null){
-            if(usuario instanceof Profesor){
-                Profesor.profesores.remove((Profesor)usuario);
-            }else if(usuario instanceof Estudiante){
-                Estudiante.estudiantes.remove((Estudiante)usuario);
-            }else{
+        if (usuario != null) {
+            if (usuario instanceof Profesor) {
+                Profesor.profesores.remove((Profesor) usuario);
+            } else if (usuario instanceof Estudiante) {
+                Estudiante.estudiantes.remove((Estudiante) usuario);
+            } else {
                 Persona.administradores.remove(usuario);
             }
             return Mensajes.mensaje.get("eli");
         }
         return Mensajes.mensaje.get("err");
     }
-    
-    public static String eliminar(String correo){
+
+    public static String eliminar(String correo) {
         Persona usuario = Persona.buscarPersona(correo);
-        if(usuario != null){
-            if(usuario instanceof Profesor){
-                Profesor.profesores.remove((Profesor)usuario);
-            }else if(usuario instanceof Estudiante){
-                Estudiante.estudiantes.remove((Estudiante)usuario);
-            }else{
+        if (usuario != null) {
+            if (usuario instanceof Profesor) {
+                Profesor.profesores.remove((Profesor) usuario);
+            } else if (usuario instanceof Estudiante) {
+                Estudiante.estudiantes.remove((Estudiante) usuario);
+            } else {
                 Persona.administradores.remove(usuario);
             }
             return Mensajes.mensaje.get("eli");
+        }
+        return Mensajes.mensaje.get("err");
+    }
+
+    public static String generarCodigo(Persona usuario) {
+        String codigo = "";
+        for (int i = 0; i < 4; i++) {
+            codigo += (int) (Math.random() * 10);
+            codigo += (char) ((int) (Math.random() * (122 - 97) + 97));
+        }
+        EnvioDeCorreo.EnvioDeMail(usuario.getCorreo(), Mensajes.mensaje.get("recu"),
+                Mensajes.mensaje.get("codrecu") + codigo);
+        return codigo;
+    }
+
+    public static String recuperarContraseña(String codigo,String codigoUsuario, String claveNueva, Persona usuario) {
+        if(codigo.equals(codigoUsuario)){
+            usuario.setClave(claveNueva);
+            return Mensajes.mensaje.get("mod");
         }
         return Mensajes.mensaje.get("err");
     }
