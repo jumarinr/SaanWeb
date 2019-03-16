@@ -1,6 +1,6 @@
 package Clases;
 
-import Auxiliares.*;
+import Auxiliares.EnvioDeCorreo;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -77,7 +77,7 @@ public class Nota {
     //métodos
     public static Nota BuscarNota(ArrayList<Nota> lista, Long doc_estudiante, int id_materia, int num_grupo, int id){
       for (Nota nota : lista) {
-        if (nota.getMatricula().getEstudiante().getIdentificacion() == doc_estudiante && nota.getMatricula().getGrupo().getNumero() == num_grupo && nota.getMatricula().getGrupo().getMateria().getId() == id_materia && nota.getId() = id) {
+        if (nota.getMatricula().getEstudiante().getIdentificacion() == doc_estudiante && nota.getMatricula().getGrupo().getNumero() == num_grupo && nota.getMatricula().getGrupo().getMateria().getId() == id_materia && nota.getId() == id) {
           return nota;
         }
       }
@@ -117,9 +117,10 @@ public class Nota {
         return "working on";
     }
     public static void EnviarCorreoActualizarNota(short opc, int id, double nota, double porcentaje, Estudiante estudiante, String materia){
-      String correo_enviar = estudiante.get_correo();
+      String correo_enviar = estudiante.getCorreo();
       String cuerpo = "";
-      Operaciones.(String correo_enviar, String asunto, String cuerpo);
+      String asunto = "";
+      EnvioDeCorreo.EnvioDeMail(correo_enviar, asunto, cuerpo);
     }
     public static String MejoresNotas(ArrayList<Grupo> lista_grupos, int id_materia, int id_grupo){
       return "working on";

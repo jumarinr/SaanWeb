@@ -94,7 +94,7 @@ public class Materia {
   public static String Eliminar(int id, ArrayList<Materia> list_materias, ArrayList<Grupo> grupos, ArrayList<Matricula> list_matricula, ArrayList<Nota> list_nota){
     Materia materia = Materia.BuscarMateria(list_materias, id);
     if (materia != null) {
-      Grupo.EliminarPorMateria(grupos, id, list_matricula, list_nota);
+      //Grupo.EliminarPorMateria(grupos, id, list_matricula, list_nota);
       list_materias.remove(list_materias.indexOf(materia));
       Materia.GuardarCambios(list_materias);
       return "eli";
