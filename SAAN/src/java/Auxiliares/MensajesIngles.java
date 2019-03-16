@@ -19,6 +19,9 @@ public class MensajesIngles {
             put("reg", "Registered");
             put("usuInc", "Incorrect username or password");
             put("eli", "Removed");
+            put("recu", "Password recovery");
+            put("codrecu", "Recovery code: ");
+            put("mod", "Modified");
         }
     };
 }
