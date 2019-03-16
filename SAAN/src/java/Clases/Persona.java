@@ -108,6 +108,10 @@ public class Persona {
         if (Persona.buscarPersona(usuario.getIdentificacion()) != null) {
             return Mensajes.mensaje.get("err");
         }
+        if(usuario.getIdentificacion() == 0 || usuario.getNombre() == null
+              ||  usuario.getClave() == null || usuario.getCorreo() == null){
+            return Mensajes.mensaje.get("err");
+        }
         if (usuario instanceof Profesor) {
             Profesor.profesores.add((Profesor) usuario);
         } else if (usuario instanceof Estudiante) {
@@ -153,7 +157,7 @@ public class Persona {
     public static String eliminar(long identificacion){
         Persona usuario = Persona.buscarPersona(identificacion);
         if(usuario != null){
-            if(usuario instanceof Profesor){
+            if(usuario instanceof Profesor){        
                 Profesor.profesores.remove((Profesor)usuario);
             }else if(usuario instanceof Estudiante){
                 Estudiante.estudiantes.remove((Estudiante)usuario);

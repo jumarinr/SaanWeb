@@ -18,5 +18,9 @@
         <title>SAAN</title>
     </head>
     <body>
+        hola mundo
+        <br/>
+        <% String hola = "Funcional"; %>
+        <%=hola%>
     </body>
 </html>
