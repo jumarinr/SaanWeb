@@ -13,13 +13,12 @@ import java.util.HashMap;
  */
 public class MensajesIngles {
 
-    public static HashMap<String, String> ingles = new HashMap<String, String>();
-    
-    public static void AgregarDatos(){
-        MensajesIngles.ingles.put("err", "Error");
-        MensajesIngles.ingles.put("reg", "Registered");
-        MensajesIngles.ingles.put("usuInc", "Incorrect username or password");
-        MensajesIngles.ingles.put("eli", "Removed");
-    }
-
+    public static HashMap<String, String> ingles = new HashMap<String, String>() {
+        {
+            put("err", "Error");
+            put("reg", "Registered");
+            put("usuInc", "Incorrect username or password");
+            put("eli", "Removed");
+        }
+    };
 }
