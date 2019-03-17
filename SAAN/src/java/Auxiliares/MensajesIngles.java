@@ -22,6 +22,10 @@ public class MensajesIngles {
             put("recu", "Password recovery");
             put("codrecu", "Recovery code: ");
             put("mod", "Modified");
+            put("ideMate","Subject identification");
+            put("gru","Group");
+            put("Nonotas","Subject without grades");
+            put("Nogrup","Subject without groups");
         }
     };
 }
