@@ -29,5 +29,19 @@ public class Profesor extends Persona {
             this.grupos = grupos;
         }
     }
+    public static eliminar(Long identificacion){
+      Persona pro = Persona.buscarPersona(identificacion);
+      if (Persona){
+        if(Persona.getGrupos().length >0){
+          return "No se puede";
+        }
+      }
+      return Persona.eliminar(identificacion);
+    }
+    public static registrar(Profesor profesor){
+      return Persona.registrar(profesor);
+    }
+    public static encontrarCorreosYEnviar(){
 
+    }
 }
