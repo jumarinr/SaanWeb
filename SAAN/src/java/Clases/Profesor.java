@@ -31,17 +31,16 @@ public class Profesor extends Persona {
     }
     public static eliminar(Long identificacion){
       Persona pro = Persona.buscarPersona(identificacion);
-      if (Persona){
+      if (pro){
         if(Persona.getGrupos().length >0){
-          return "No se puede";
+          return "No se puede, no insista y vayase >:v";
         }
       }
       return Persona.eliminar(identificacion);
     }
-    public static registrar(Profesor profesor){
-      return Persona.registrar(profesor);
+    public static registrar(Profesor pro){
+      return Persona.registrar(pro);
     }
-    public static encontrarCorreosYEnviar(){
-
+    public static encontrarCorreosYEnviar(List lista, Integer grupo, String Asunto, Integer Materia, String Fecha, String nombre, String Detalle){
     }
 }
