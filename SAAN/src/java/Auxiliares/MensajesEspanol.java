@@ -22,6 +22,10 @@ public class MensajesEspanol {
             put("recu", "Recuperación de contraseña");
             put("codrecu", "Código de recuperación: ");
             put("mod", "Modificado");
+            put("ideMate","Identificacion de la materia");
+            put("gru","Grupo");
+            put("Nonotas","Materia sin notas");
+            put("Nogrup","Materia sin grupos");
         }
     };
 
