@@ -102,7 +102,7 @@ public class Grupo {
         int borr=0;
         for (int i = 0; i<lista.size(); i++) {
             if(lista.get(i-borr).getMateria().getId()==idMateria){
-                Grupo.eliminar(lista, lista.get(i-borr).getNumero(), idMateria, listMatricula, listNota);
+                //Grupo.eliminar(lista, lista.get(i-borr).getNumero(), idMateria, listMatricula, listNota);
                 borr++;
             }
         }

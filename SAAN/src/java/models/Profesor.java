@@ -23,24 +23,24 @@ public class Profesor extends Persona {
     public List<Grupo> getGrupos() {
         return grupos;
     }
-
+     
     public void setGrupos(List<Grupo> grupos) {
         if (grupos != null) {
             this.grupos = grupos;
         }
     }
-    public static eliminar(Long identificacion){
-      Persona pro = Persona.buscarPersona(identificacion);
+    public static String eliminar(Long identificacion){
+      Profesor pro = (Profesor)Persona.buscarPersona(identificacion);
       if (pro!=null){
-        if(pro.getGrupos().length >0){
+        if(pro.getGrupos().size() >0){
           return "No se puede, no insista y vayase >:v";
         }
       }
       return Persona.eliminar(identificacion);
     }
-    public static registrar(Profesor pro){
+    public static String registrar(Profesor pro){
       return Persona.registrar(pro);
     }
-    public static encontrarCorreosYEnviar(List lista, Integer grupo, String Asunto, Integer Materia, String Fecha, String nombre, String Detalle){
-    }
+    //public static encontrarCorreosYEnviar(List lista, Integer grupo, String Asunto, Integer Materia, String Fecha, String nombre, String Detalle){
+    //}
 }
