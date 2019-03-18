@@ -1,7 +1,7 @@
-package Clases;
+package models;
 
-import Auxiliares.EnvioDeCorreo;
-import Auxiliares.Mensajes;
+import util.EnvioDeCorreo;
+import util.Mensajes;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -109,7 +109,7 @@ public class Persona {
         if (Persona.buscarPersona(usuario.getIdentificacion()) != null) {
             return Mensajes.mensaje.get("err");
         }
-        if (usuario.getIdentificacion() == 0 || usuario.getNombre() == null
+        if (usuario.getIdentificacion() <= 0 || usuario.getNombre() == null
                 || usuario.getClave() == null || usuario.getCorreo() == null) {
             return Mensajes.mensaje.get("err");
         }

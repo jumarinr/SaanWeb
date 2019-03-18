@@ -1,7 +1,11 @@
-package Clases;
-import Auxiliares.Mensajes;
-import Clases.Matricula;
-import java.util.*;
+package models;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import util.Mensajes;
+
 /**
  *
  * @author Juan Pablo
@@ -63,21 +67,23 @@ public class Grupo {
             this.materia = materia;
         }
     }
-    public static Grupo buscarGrupo( List<Grupo> lista,short num,int idMateria){
-        for (Grupo grupo :lista) {
-            if(grupo.getNumero()==num && idMateria==grupo.getMateria().getId()){
+
+    public static Grupo buscarGrupo(short num, int idMateria) {
+        for (Grupo grupo : Grupo.grupos) {
+            if (grupo.getNumero() == num && idMateria == grupo.getMateria().getId()) {
                 return grupo;
             }
         }
         return null;
 
     }
-    public static String registrar(Grupo gr,List<Grupo> lista){
-        if(gr.getMateria()!=null){
-            if(gr.buscarGrupo(lista,gr.getNumero(),gr.getMateria().getId())==null||gr.getProfesor()==null){
+
+    public static String registrar(Grupo gr) {
+        if (gr.getMateria() != null) {
+            if (gr.buscarGrupo(gr.getNumero(), gr.getMateria().getId()) != null || gr.getProfesor() == null || gr.getNumero() <= 0) {
                 return Mensajes.mensaje.get("err");
-            }else{
-                lista.add(gr);
+            } else {
+                Grupo.grupos.add(gr);
                 gr.getMateria().getGrupos().add(gr);
                 gr.getProfesor().getGrupos().add(gr);
                 return Mensajes.mensaje.get("reg");
@@ -86,66 +92,67 @@ public class Grupo {
         }
         return Mensajes.mensaje.get("err");
     }
-    public static String eliminar(List<Grupo> lista,short num,int idMateria,List<Matricula> listMatricula,List<Nota> listNota){
-        Grupo grupo= Grupo.buscarGrupo(lista, num, idMateria);
-        if(grupo!=null){
-            Matricula.eliminarPorGrupo(idMateria, idMateria);
+
+    public static String eliminar(short num, int idMateria) {
+        Grupo grupo = Grupo.buscarGrupo(num, idMateria);
+        if (grupo != null) {
+            Matricula.eliminarPorGrupo(num, idMateria);
             grupo.getMateria().getGrupos().remove(grupo);
-            grupo.getProfesor().getGrupos().remove(grupos);
-            lista.remove(grupo);
+            grupo.getProfesor().getGrupos().remove(grupo);
+            Grupo.grupos.remove(grupo);
             return Mensajes.mensaje.get("eli");
-        }else{
+        } else {
             return Mensajes.mensaje.get("err");
         }
     }
-    public static void eliminarPorMateria(List<Grupo> lista,int idMateria,List<Matricula> listMatricula){
-        int borr=0;
-        for (int i = 0; i<lista.size(); i++) {
-            if(lista.get(i-borr).getMateria().getId()==idMateria){
-                //Grupo.eliminar(lista, lista.get(i-borr).getNumero(), idMateria, listMatricula, listNota);
-                borr++;
+
+    public static void eliminarPorMateria(int idMateria) {
+        for (Grupo grupo : Grupo.grupos) {
+            if (grupo.getMateria().getId() == idMateria) {
+                Grupo.eliminar(grupo.numero, idMateria);
             }
         }
     }
-    public static String mejoresGrupos(Materia mat){
-        List<Grupo> n= mat.getGrupos();
-        if(!n.isEmpty()){
-            HashMap<Integer,Grupo> a = new HashMap<Integer, Grupo>();
+
+    public static String mejoresGrupos(Materia mat) {
+        List<Grupo> n = mat.getGrupos();
+        if (!n.isEmpty()) {
+            HashMap<Integer, Grupo> a = new HashMap<Integer, Grupo>();
             for (Grupo grupo : n) {
-                int cont=0;
-                List<Matricula> b=grupo.getMatriculas();
-                if(!b.isEmpty()){
+                int cont = 0;
+                List<Matricula> b = grupo.getMatriculas();
+                if (!b.isEmpty()) {
                     for (Matricula matricula : b) {
-                        List<Nota> c=matricula.getNotas();
-                        int cont2=0;
-                        if(!c.isEmpty()){
+                        List<Nota> c = matricula.getNotas();
+                        int cont2 = 0;
+                        if (!c.isEmpty()) {
                             for (Nota nota : c) {
-                                cont2+= nota.getValor();
+                                cont2 += nota.getValor();
                             }
-                        }else{
-                           cont2=0;
+                        } else {
+                            cont2 = 0;
                         }
-                        cont+=cont2;
+                        cont += cont2;
                     }
-                    a.put(cont/b.size(), grupo);
-                }else{
+                    a.put(cont / b.size(), grupo);
+                } else {
                     a.put(0, grupo);
                 }
             }
-            int mayor=0;
-            for (Map.Entry<Integer,Grupo> i: a.entrySet()) {
-                if(i.getKey()>mayor){
-                    mayor=i.getKey();
+            int mayor = 0;
+            for (Map.Entry<Integer, Grupo> i : a.entrySet()) {
+                if (i.getKey() > mayor) {
+                    mayor = i.getKey();
                 }
             }
-            if(mayor!=0){
-                return Mensajes.mensaje.get("ideMat")+mat.getId()+ "\n"+Mensajes.mensaje.get("gru")+a.get(mayor).getNumero();
-            }else{
-                return Mensajes.mensaje.get("ideMat")+mat.getId()+"\n"+Mensajes.mensaje.get("Nonotas");
+            if (mayor != 0) {
+                return Mensajes.mensaje.get("ideMat") + mat.getId() + "\n" + Mensajes.mensaje.get("gru") + a.get(mayor).getNumero();
+            } else {
+                return Mensajes.mensaje.get("ideMat") + mat.getId() + "\n" + Mensajes.mensaje.get("Nonotas");
             }
 
-        }else{
-            return Mensajes.mensaje.get("ideMat")+mat.getId()+"\n"+Mensajes.mensaje.get("Nogrup");
+        } else {
+            return Mensajes.mensaje.get("ideMat") + mat.getId() + "\n" + Mensajes.mensaje.get("Nogrup");
         }
     }
 

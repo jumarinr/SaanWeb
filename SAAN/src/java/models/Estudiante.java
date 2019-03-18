@@ -1,4 +1,4 @@
-package Clases;
+package models;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +28,17 @@ public class Estudiante extends Persona {
         if (matriculas != null) {
             this.matriculas = matriculas;
         }
+    }
+
+    public static String eliminar(long identificacion) {
+        Matricula.eliminarPorEstudiante(identificacion);
+        return Persona.eliminar(identificacion);
+    }
+
+    public static String eliminar(String correo) {
+        Persona est = Persona.buscarPersona(correo);
+        Matricula.eliminarPorEstudiante(est.getIdentificacion());
+        return Persona.eliminar(correo);
     }
 
 }

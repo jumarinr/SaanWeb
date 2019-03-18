@@ -1,8 +1,9 @@
-package Clases;
+package models;
 
-import Auxiliares.EnvioDeCorreo;
+import util.EnvioDeCorreo;
 import java.util.ArrayList;
 import java.util.List;
+import util.Mensajes;
 
 public class Nota {
 
@@ -73,60 +74,56 @@ public class Nota {
             this.matricula = matricula;
         }
     }
-    
-    //métodos
-    public static Nota BuscarNota(ArrayList<Nota> lista, Long doc_estudiante, int id_materia, int num_grupo, int id){
-      for (Nota nota : lista) {
-        if (nota.getMatricula().getEstudiante().getIdentificacion() == doc_estudiante && nota.getMatricula().getGrupo().getNumero() == num_grupo && nota.getMatricula().getGrupo().getMateria().getId() == id_materia && nota.getId() == id) {
-          return nota;
-        }
-      }
-      return null;
-    }
-    public static String Registrar(Nota nota, ArrayList<Nota> lista){
-      if (Nota.BuscarNota(lista, nota.getMatricula().getEstudiante().getIdentificacion(), nota.getMatricula().getGrupo().getNumero(), nota.getMatricula().getGrupo().getMateria().getId(), nota.getId()) != null) {
-        return "err";
-      }
-      else {
-        lista.add(nota);
-        nota.getMatricula().getNotas().add(nota);
-        return "reg";
-      }
-    }
-    public static String Eliminar(ArrayList<Nota> lista, Long doc_estudiante, int id_materia, int num_grupo, int id){
-      Nota nota = Nota.BuscarNota(lista, doc_estudiante, id_materia, num_grupo, id);
-      if (nota != null) {
-        //...
-        return "eli";
-      }
-      return "err";
-    }
-    public static ArrayList<Nota> MostrarNotas(ArrayList<Nota> lista, short est, short gru, short mat){
-      ArrayList<Nota> notas = new ArrayList<Nota>();
-      for (Nota nota : lista) {
-        Grupo grupo = nota.getMatricula().getGrupo();
 
-        if ((est == -1 || est == nota.getMatricula().getEstudiante().getIdentificacion()) && (gru == -1 || (gru == grupo.getNumero() && mat == grupo.getMateria().getId()))) {
-          notas.add(nota);
+    //métodos
+    public static Nota buscarNota(long doc_estudiante, int id_materia, int num_grupo, int id) {
+        for (Nota nota : Nota.notas) {
+            if (nota.getMatricula().getEstudiante().getIdentificacion() == doc_estudiante && nota.getMatricula().getGrupo().getNumero() == num_grupo && nota.getMatricula().getGrupo().getMateria().getId() == id_materia && nota.getId() == id) {
+                return nota;
+            }
         }
-      }
-      return notas;
+        return null;
     }
-    public static String EliminarPorMatricula(ArrayList<Nota> lista, int num_grupo, int id_materia){
-        // ...
+
+    public static String registrar(Nota nota) {
+        if (nota.getId() <= 0 || nota.getMatricula() == null || nota.getPorcentaje() < 0 ||
+                nota.getValor() < 0) {
+            return Mensajes.mensaje.get("err");
+        }
+        if (Nota.buscarNota(nota.getMatricula().getEstudiante().getIdentificacion(),
+                nota.getMatricula().getGrupo().getNumero(),
+                nota.getMatricula().getGrupo().getMateria().getId(), nota.getId()) != null) {
+            return Mensajes.mensaje.get("err");
+        } else {
+            Nota.notas.add(nota);
+            nota.getMatricula().getNotas().add(nota);
+            return Mensajes.mensaje.get("reg");
+        }
+    }
+
+    public static String eliminar(long doc_estudiante, int id_materia, int num_grupo, int id) {
+        Nota nota = Nota.buscarNota(doc_estudiante, id_materia, num_grupo, id);
+        if (nota != null) {
+            Nota.notas.remove(nota);
+            nota.getMatricula().getNotas().remove(nota);
+            return Mensajes.mensaje.get("eli");
+        }
+        return Mensajes.mensaje.get("err");
+    }
+
+    public static void enviarCorreoActualizarNota(short opc, int id, double nota, double porcentaje, Estudiante estudiante, String materia) {
+        String correo_enviar = estudiante.getCorreo();
+        String cuerpo = "";
+        String asunto = "";
+        EnvioDeCorreo.EnvioDeMail(correo_enviar, asunto, cuerpo);
+    }
+
+    public static String mejoresNotas(int id_materia, int id_grupo) {
         return "working on";
     }
-    public static void EnviarCorreoActualizarNota(short opc, int id, double nota, double porcentaje, Estudiante estudiante, String materia){
-      String correo_enviar = estudiante.getCorreo();
-      String cuerpo = "";
-      String asunto = "";
-      EnvioDeCorreo.EnvioDeMail(correo_enviar, asunto, cuerpo);
-    }
-    public static String MejoresNotas(ArrayList<Grupo> lista_grupos, int id_materia, int id_grupo){
-      return "working on";
-    }
-    public static boolean PorcentajeDiferente100(Materia materia, int id_grupo, int estudiante, double porcentaje){
-      //...
-      return true;
+
+    public static boolean porcentajeDiferente100(int id_grupo, int estudiante, double porcentaje) {
+        //...
+        return true;
     }
 }
