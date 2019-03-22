@@ -1,8 +1,9 @@
 package models;
 
-import Auxiliares.EnvioDeCorreo;
+import util.EnvioDeCorreo;
 import java.util.ArrayList;
 import java.util.List;
+import util.Mensajes;
 
 public class Nota {
 
@@ -73,13 +74,15 @@ public class Nota {
             this.matricula = matricula;
         }
     }
-    
+
     //métodos
-    public static Nota BuscarNota(ArrayList<Nota> lista, Long doc_estudiante, int id_materia, int num_grupo, int id){
-      for (Nota nota : lista) {
-        if (nota.getMatricula().getEstudiante().getIdentificacion() == doc_estudiante && nota.getMatricula().getGrupo().getNumero() == num_grupo && nota.getMatricula().getGrupo().getMateria().getId() == id_materia && nota.getId() == id) {
-          return nota;
+    public static Nota buscarNota(long doc_estudiante, int id_materia, int num_grupo, int id) {
+        for (Nota nota : Nota.notas) {
+            if (nota.getMatricula().getEstudiante().getIdentificacion() == doc_estudiante && nota.getMatricula().getGrupo().getNumero() == num_grupo && nota.getMatricula().getGrupo().getMateria().getId() == id_materia && nota.getId() == id) {
+                return nota;
+            }
         }
+<<<<<<< HEAD
       }
       return null;
     }
@@ -106,13 +109,27 @@ public class Nota {
       ArrayList<Nota> notas = new ArrayList<Nota>();
       for (Nota nota : lista) {
         Grupo grupo = nota.getMatricula().getGrupo();
-
-        if ((est == -1 || est == nota.getMatricula().getEstudiante().getIdentificacion()) && (gru == -1 || (gru == grupo.getNumero() && mat == grupo.getMateria().getId()))) {
-          notas.add(nota);
-        }
-      }
-      return notas;
+=======
+        return null;
     }
+>>>>>>> f1ed61e6feb8aa2e2024a5f319aed6b0445387ba
+
+    public static String registrar(Nota nota) {
+        if (nota.getId() <= 0 || nota.getMatricula() == null || nota.getPorcentaje() < 0 ||
+                nota.getValor() < 0) {
+            return Mensajes.mensaje.get("err");
+        }
+        if (Nota.buscarNota(nota.getMatricula().getEstudiante().getIdentificacion(),
+                nota.getMatricula().getGrupo().getNumero(),
+                nota.getMatricula().getGrupo().getMateria().getId(), nota.getId()) != null) {
+            return Mensajes.mensaje.get("err");
+        } else {
+            Nota.notas.add(nota);
+            nota.getMatricula().getNotas().add(nota);
+            return Mensajes.mensaje.get("reg");
+        }
+    }
+<<<<<<< HEAD
     public static void EliminarPorGrupo(ArrayList<Nota> lista, long num_grupo, long id_materia){
         int borr = 0;
         for(int i=0; i<lista.size(); i++){
@@ -135,13 +152,26 @@ public class Nota {
     public static String EliminarPorMatricula(ArrayList<Nota> lista, int num_grupo, int id_materia){
         // ...
         return "working on";
+=======
+
+    public static String eliminar(long doc_estudiante, int id_materia, int num_grupo, int id) {
+        Nota nota = Nota.buscarNota(doc_estudiante, id_materia, num_grupo, id);
+        if (nota != null) {
+            Nota.notas.remove(nota);
+            nota.getMatricula().getNotas().remove(nota);
+            return Mensajes.mensaje.get("eli");
+        }
+        return Mensajes.mensaje.get("err");
+>>>>>>> f1ed61e6feb8aa2e2024a5f319aed6b0445387ba
     }
-    public static void EnviarCorreoActualizarNota(short opc, int id, double nota, double porcentaje, Estudiante estudiante, String materia){
-      String correo_enviar = estudiante.getCorreo();
-      String cuerpo = "";
-      String asunto = "";
-      EnvioDeCorreo.EnvioDeMail(correo_enviar, asunto, cuerpo);
+
+    public static void enviarCorreoActualizarNota(short opc, int id, double nota, double porcentaje, Estudiante estudiante, String materia) {
+        String correo_enviar = estudiante.getCorreo();
+        String cuerpo = "";
+        String asunto = "";
+        EnvioDeCorreo.EnvioDeMail(correo_enviar, asunto, cuerpo);
     }
+<<<<<<< HEAD
     public static String MejoresNotas(ArrayList<Grupo> lista_grupos, int id_materia, int id_grupo){
 //        for(Grupo grupo : lista_grupos){
 //            if(grupo.getMateria().getId() == id_materia && grupo.getNumero() == id_grupo){
@@ -159,5 +189,15 @@ public class Nota {
             }
         }
       return true;
+=======
+
+    public static String mejoresNotas(int id_materia, int id_grupo) {
+        return "working on";
+    }
+
+    public static boolean porcentajeDiferente100(int id_grupo, int estudiante, double porcentaje) {
+        //...
+        return true;
+>>>>>>> f1ed61e6feb8aa2e2024a5f319aed6b0445387ba
     }
 }

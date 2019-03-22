@@ -1,4 +1,4 @@
-package Auxiliares;
+package util;
 
 import java.util.HashMap;
 
@@ -8,6 +8,6 @@ import java.util.HashMap;
  */
 public class Mensajes {
 
-    public static HashMap<String,String> mensaje;
+    public static HashMap<String,String> mensaje = MensajesEspanol.espanol;
     
 }

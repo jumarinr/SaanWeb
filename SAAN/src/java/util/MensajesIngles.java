@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Auxiliares;
+package util;
 
 import java.util.HashMap;
 
@@ -22,10 +22,18 @@ public class MensajesIngles {
             put("recu", "Password recovery");
             put("codrecu", "Recovery code: ");
             put("mod", "Modified");
-            put("ideMate","Subject identification");
-            put("gru","Group");
-            put("Nonotas","Subject without grades");
-            put("Nogrup","Subject without groups");
+            put("ideMate", "Subject identification");
+            put("gru", "Group");
+            put("Nonotas", "Subject without grades");
+            put("Nogrup", "Subject without groups");
+            put("megru", "Better groups");
+            put("estper", "Students who are losing");
+            put("ini", "Main");
+            put("saan", "ACADEMIC SYSTEM ASSISTANT OF SCORE");
+            put("esp", "Spanish");
+            put("ing", "English");
+            put("inisec","Login");
+            put("menu","Menu");
         }
     };
 }

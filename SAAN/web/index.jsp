@@ -5,6 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,7 +18,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>SAAN|Inicio</title>
+  <title>SAAN: ${mensaje.get("ini")}</title>
 
   <!-- Custom fonts for this template-->
   <link href="dashboard/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -25,6 +27,9 @@
   <!-- Custom styles for this template-->
   <link href="dashboard/css/sb-admin-2.min.css" rel="stylesheet">
 
+  <c:if test="${empty mensaje}">
+    <script>location.href='./inicio'</script>
+  </c:if>
 </head>
 
 <body id="page-top">
@@ -52,29 +57,23 @@
 
       <!-- Heading -->
       <div class="sidebar-heading">
-        Menú
+        ${mensaje.get("menu")}
       </div>
 
       <!-- Mejores grupos -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="#">
           <img class="img-profile rounded-circle" src="https://cdn1.iconfinder.com/data/icons/unigrid-bluetone-human-vol-1/60/011_007_collective_group_masses_people_company-128.png">
-          <span style="font-size: 70%;">Mejores grupos</span>
+          <span style="font-size: 70%;">${mensaje.get("megru")}</span>
         </a>
       </li>
       <!-- Personas que van perdiendo -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="#">
           <img class="img-profile rounded-circle" src="https://cdn4.iconfinder.com/data/icons/jetflat-2-gestures/60/007_002_no_dislike_disagree_vote_thumbs-down_thumbs_left-128.png">
-          <span style="font-size: 70%;">Estudiantes que van perdiendo</span>
+          <span style="font-size: 70%;">${mensaje.get("estper")}</span>
         </a>
       </li>
-      
-
-      <!-- Sidebar Toggler (Sidebar) -->
-      <div class="text-center d-none d-md-inline">
-        <button class="rounded-circle border-0" id="sidebarToggle"></button>
-      </div>
 
     </ul>
     <!-- End of Sidebar -->
@@ -97,70 +96,29 @@
 
                         
             <div class="input-group-append" style="margin-top: 1%">
-                <h4>SISTEMA ACADÉMICO ASISTENTE DE NOTAS</h4>
+                <h4>${mensaje.get("saan")}</h4>
             </div>
             
 
 
           <!-- Topbar Navbar -->
-          <ul class="navbar-nav ml-auto">
-
-            <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-            <li class="nav-item dropdown no-arrow d-sm-none">
-              <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-search fa-fw"></i>
-              </a>
-              <!-- Dropdown - Messages -->
-              <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
-                <form class="form-inline mr-auto w-100 navbar-search">
-                  <div class="input-group">
-                    <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-                    <div class="input-group-append">
-                      <button class="btn btn-primary" type="button">
-                        <i class="fas fa-search fa-sm"></i>
-                      </button>
-                    </div>
-                  </div>
-                </form>
-              </div>           
-            </li>            
-
+          <ul class="navbar-nav ml-auto">          
       
             <div class="topbar-divider d-none d-sm-block"></div>            
-            <form action="" style="margin-top: 6.5%">                
-                <button type="button"  style="width: auto; height: auto;"class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off">
-                    Español
+            <form action="./inicio" method="POST" style="margin-top: 6.5%">                
+                <button type="submit" value="español" name="action" style="width: auto; height: auto;"class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off">
+                    ${mensaje.get("esp")}
                 </button>
-                <button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off">
-                    English
+                <button type="submit" value="ingles" name="action" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off">
+                    ${mensaje.get("ing")}
                 </button>
             </form>
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Login</span>
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small">${mensaje.get("inisec")}</span>
                 <img class="img-profile rounded-circle" src="https://cdn1.iconfinder.com/data/icons/unigrid-bluetone-symbols-arrows-vol-3/60/024_106_enter_input_login_door_sign-128.png">
               </a>
-<!--               Dropdown - User Information 
-              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="#">
-                  <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Profile
-                </a>
-                <a class="dropdown-item" href="#">
-                  <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Settings
-                </a>
-                <a class="dropdown-item" href="#">
-                  <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Activity Log
-                </a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                  <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Logout
-                </a>
-              </div>-->
             </li>
 
           </ul>
@@ -193,9 +151,11 @@
                 <div class="card-header py-3">
                   <h6 class="m-0 font-weight-bold text-primary">Saan Web</h6>
                 </div>
-                <!--<div class="card-body"> -->
-                  <img style="width: 100%; height: 200%" src="https://codigoespagueti.com/wp-content/uploads/2015/05/Gmail-GIF.gif">
-                <!-- </div> -->
+                <div class="card-body">
+               </div>
+                <img style="width: 100%; height: 200%" src="https://codigoespagueti.com/wp-content/uploads/2015/05/Gmail-GIF.gif">
+                
+                
               </div>
 
             </div>
@@ -211,7 +171,7 @@
       <footer class="sticky-footer bg-white">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Your Website 2019</span>
+            <span>Copyright &copy; SAAN 2019</span>
           </div>
         </div>
       </footer>
@@ -228,24 +188,6 @@
     <i class="fas fa-angle-up"></i>
   </a>
 
-  <!-- Logout Modal-->
-  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>

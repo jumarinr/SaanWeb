@@ -5,7 +5,7 @@
  */
 package models;
 
-import Auxiliares.Mensajes;
+import util.Mensajes;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -108,7 +108,7 @@ public class Matricula {
             return Mensajes.mensaje.get("err");
         }
         if (matr.getEstudiante() == null || matr.getGrupo() == null
-                || matr.getSemestre() > 0) {
+                || matr.getSemestre() <= 0) {
             return Mensajes.mensaje.get("err");
         }
         Matricula.matriculas.add(matr);
@@ -142,7 +142,7 @@ public class Matricula {
         }
     }
     
-    public static void eliminarPorMateria(long identificacion){
+    public static void eliminarPorEstudiante(long identificacion){
         for(Matricula mat: Matricula.matriculas){
             if(mat.getEstudiante().getIdentificacion() == identificacion){
                 Matricula.cancelar(identificacion, mat.getGrupo().getMateria().getId());

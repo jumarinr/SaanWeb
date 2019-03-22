@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Auxiliares;
+package util;
 
 import java.util.HashMap;
 
@@ -22,10 +22,18 @@ public class MensajesEspanol {
             put("recu", "Recuperación de contraseña");
             put("codrecu", "Código de recuperación: ");
             put("mod", "Modificado");
-            put("ideMate","Identificacion de la materia");
-            put("gru","Grupo");
-            put("Nonotas","Materia sin notas");
-            put("Nogrup","Materia sin grupos");
+            put("ideMate", "Identificacion de la materia");
+            put("gru", "Grupo");
+            put("Nonotas", "Materia sin notas");
+            put("Nogrup", "Materia sin grupos");
+            put("megru", "Mejores grupos");
+            put("estper", "Estudiantes que van perdiendo");
+            put("ini", "Inicio");
+            put("saan", "SISTEMA ACADÉMICO ASISTENTE DE NOTAS");
+            put("esp", "Español");
+            put("ing", "Ingles");
+            put("inisec","Iniciar sesión");
+            put("menu","Menú");
         }
     };
 

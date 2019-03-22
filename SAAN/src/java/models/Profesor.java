@@ -1,4 +1,4 @@
-package Clases;
+package models;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,24 +23,27 @@ public class Profesor extends Persona {
     public List<Grupo> getGrupos() {
         return grupos;
     }
-     
+
     public void setGrupos(List<Grupo> grupos) {
         if (grupos != null) {
             this.grupos = grupos;
         }
     }
-    public static String eliminar(Long identificacion){
-      Profesor pro = (Profesor)Persona.buscarPersona(identificacion);
-      if (pro!=null){
-        if(pro.getGrupos().size() >0){
-          return "No se puede, no insista y vayase >:v";
+
+    public static String eliminar(Long identificacion) {
+        Profesor pro = (Profesor) Persona.buscarPersona(identificacion);
+        if (pro != null) {
+            if (pro.getGrupos().size() > 0) {
+                return "No se puede, no insista y vayase >:v";
+            }
         }
-      }
-      return Persona.eliminar(identificacion);
+        return Persona.eliminar(identificacion);
     }
-    public static String registrar(Profesor pro){
-      return Persona.registrar(pro);
+
+    public static String registrar(Profesor pro) {
+        return Persona.registrar(pro);
     }
+
     //public static encontrarCorreosYEnviar(List lista, Integer grupo, String Asunto, Integer Materia, String Fecha, String nombre, String Detalle){
     //}
 }

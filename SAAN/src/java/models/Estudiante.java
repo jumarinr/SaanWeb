@@ -30,4 +30,15 @@ public class Estudiante extends Persona {
         }
     }
 
+    public static String eliminar(long identificacion) {
+        Matricula.eliminarPorEstudiante(identificacion);
+        return Persona.eliminar(identificacion);
+    }
+
+    public static String eliminar(String correo) {
+        Persona est = Persona.buscarPersona(correo);
+        Matricula.eliminarPorEstudiante(est.getIdentificacion());
+        return Persona.eliminar(correo);
+    }
+
 }
