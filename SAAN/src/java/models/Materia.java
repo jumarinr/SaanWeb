@@ -1,4 +1,4 @@
-package Clases;
+package models;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -134,5 +134,15 @@ public class Materia {
     } catch (IOException e) {
       System.out.println("An error occurred.");
     } 
+  }
+  public static String Registrar(Materia materia, ArrayList<Materia> lista){
+      if(Materia.BuscarMateria(lista, materia.getId())!=null){
+          return "err";
+      }
+      else{
+          lista.add(materia);
+          Materia.GuardarCambios(lista);
+          return "reg";
+      }
   }
 }
