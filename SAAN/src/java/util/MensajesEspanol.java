@@ -34,6 +34,8 @@ public class MensajesEspanol {
             put("ing", "Ingles");
             put("inisec","Iniciar sesión");
             put("menu","Menú");
+            put("Ganosinno","El estudiante no va perdiendo o no tiene notas");
+            put("Noestnot","Estudiante sin notas");
         }
     };
 
