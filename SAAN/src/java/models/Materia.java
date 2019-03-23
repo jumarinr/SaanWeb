@@ -138,4 +138,30 @@ public class Materia {
             System.out.println("An error occurred.");
         }
     }
+<<<<<<< HEAD
+  }
+  public static void GuardarCambios(ArrayList<Materia> lista){
+    try { 
+      FileWriter file = new FileWriter("materias.txt");
+      file.write("");
+      for (Materia materia : lista){
+          file.write("<" + String.valueOf(materia.getId()) + "," + materia.getNombre() + "," + String.valueOf(materia.getCreditos()) + ">");
+      }
+      file.close();
+    } catch (IOException e) {
+      System.out.println("An error occurred.");
+    } 
+  }
+  public static String Registrar(Materia materia, ArrayList<Materia> lista){
+      if(Materia.BuscarMateria(lista, materia.getId())!=null){
+          return "err";
+      }
+      else{
+          lista.add(materia);
+          Materia.GuardarCambios(lista);
+          return "reg";
+      }
+  }
+=======
+>>>>>>> f1ed61e6feb8aa2e2024a5f319aed6b0445387ba
 }
