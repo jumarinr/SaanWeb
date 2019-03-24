@@ -41,7 +41,7 @@
                 </c:if>
                 <c:if test="${not empty usua}">
                     <li class="nav-item dropdown no-arrow">
-                        <a class="nav-link dropdown-toggle" href="./login" id="userDropdown" role="button"  aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="./logout" id="userDropdown" role="button"  aria-haspopup="true" aria-expanded="false">
                             <span class="mr-2 d-none d-lg-inline text-gray-600 small">Cerrar sesion</span>
                             <img class="img-profile rounded-circle" src="https://cdn0.iconfinder.com/data/icons/basic-element-blue-filled/614/786_-_Logout-256.png">
                         </a>

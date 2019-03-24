@@ -48,7 +48,7 @@ public class AdminMenuAdministrador extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         request.setAttribute("mensaje", Mensajes.mensaje);
-        request.setAttribute("usua", session.getAttribute("usu"));
+        request.setAttribute("usua", session.getAttribute("usua"));
         RequestDispatcher view = request.getRequestDispatcher("menuAdmin.jsp");
         view.forward(request, response);
     }
@@ -66,7 +66,7 @@ public class AdminMenuAdministrador extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         request.setAttribute("mensaje", Mensajes.mensaje);
-        request.setAttribute("usu", session.getAttribute("usu"));
+        request.setAttribute("usua", session.getAttribute("usua"));
         RequestDispatcher view = request.getRequestDispatcher("menuAdmin.jsp");
         view.forward(request, response);
     }

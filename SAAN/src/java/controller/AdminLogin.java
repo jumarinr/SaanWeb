@@ -83,7 +83,7 @@ public class AdminLogin extends HttpServlet {
             }
             switch (usu) {
                 case 0:
-                    session.setAttribute("usu", usua);
+                    session.setAttribute("usua", usua);
                     RequestDispatcher ad = request.getRequestDispatcher("/menuAdministrador");
                     ad.forward(request, response);
                     break;
