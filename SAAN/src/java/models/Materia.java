@@ -69,6 +69,12 @@ public class Materia {
             this.grupos = grupos;
         }
     }
+    
+    @Override
+    public String toString() {
+        return "Materia{" + "id=" + id + ", nombre=" + nombre + ", creditos=" + creditos + ", grupos=" + grupos + '}';
+    }
+    
 
     public static Materia buscarMateria(List<Materia> materias, int id) {
         for (Materia materia : materias) {
@@ -131,19 +137,6 @@ public class Materia {
             FileWriter file = new FileWriter("materias.txt");
             file.write("");
             for (Materia materia : materias) {
-                file.write("<" + String.valueOf(materia.getId()) + "," + materia.getNombre() + "," + String.valueOf(materia.getCreditos()) + ">");
-            }
-            file.close();
-        } catch (IOException e) {
-            System.out.println("An error occurred.");
-        }
-    }
-
-    public static void guardarCambios(ArrayList<Materia> lista) {
-        try {
-            FileWriter file = new FileWriter("materias.txt");
-            file.write("");
-            for (Materia materia : lista) {
                 file.write("<" + String.valueOf(materia.getId()) + "," + materia.getNombre() + "," + String.valueOf(materia.getCreditos()) + ">");
             }
             file.close();
