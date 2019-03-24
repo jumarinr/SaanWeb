@@ -19,6 +19,7 @@ import util.Mensajes;
 import java.util.ArrayList;
 import java.util.List;
 import models.*;
+import util.extra;
 
 /**
  *
@@ -36,8 +37,6 @@ public class AdminLogin extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -50,9 +49,9 @@ public class AdminLogin extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            
+
         request.setAttribute("mensaje", Mensajes.mensaje);
-        
+
         RequestDispatcher view = request.getRequestDispatcher("login.jsp");
         view.forward(request, response);
     }
@@ -68,23 +67,46 @@ public class AdminLogin extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-           String id = request.getParameter("id");
-           String clave = request.getParameter("clave");
-           HttpSession session = request.getSession();  
-           if(session.getAttribute("personas") != null && session.getAttribute("profesores") != null && session.getAttribute("estudiantes") != null){
-               List<Persona> personas = (ArrayList<Persona>)session.getAttribute("personas");
-               List<Estudiante> estudiantes = (ArrayList<Estudiante>)session.getAttribute("estudiantes");
-               List<Profesor> profesores = (ArrayList<Profesor>)session.getAttribute("profesores");
-                           
-           }
-           
+        String id = request.getParameter("id");
+        String clave = request.getParameter("clave");
+        HttpSession session = request.getSession();
+        if (session.getAttribute("personas") != null && session.getAttribute("profesores") != null && session.getAttribute("estudiantes") != null) {
+            List<Persona> personas = (ArrayList<Persona>) session.getAttribute("personas");
+            List<Estudiante> estudiantes = (ArrayList<Estudiante>) session.getAttribute("estudiantes");
+            List<Profesor> profesores = (ArrayList<Profesor>) session.getAttribute("profesores");
+            int usu = -1;
+            if (extra.isInteger(id)) {
+                usu = Persona.login(personas, estudiantes, profesores, Long.parseLong(id), clave);
+            } else {
+                usu = Persona.login(personas, estudiantes, profesores, id, clave);
+            }
+            switch (usu) {
+                case 1:
+                    RequestDispatcher ad = request.getRequestDispatcher("/menuAdministrador");
+                    ad.forward(request, response);
+                    break;
+                case 2:
+                    //Estudiante
+                    break;
+                case 3:
+                    //Profesor
+                    break;
+                default:
+                    request.setAttribute("mensaje", Mensajes.mensaje);
+                    RequestDispatcher view = request.getRequestDispatcher("login.jsp");
+                    view.forward(request, response);
+                    break;
+            }
+        } else {
+            RequestDispatcher view = request.getRequestDispatcher("/inicio");
+            view.forward(request, response);
+        }
+
     }
-    
 
     /**
      * Returns a short description of the servlet.
      *
      * @return a String containing servlet description
      */
-
 }
