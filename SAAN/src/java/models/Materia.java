@@ -71,6 +71,13 @@ public class Materia {
         }
     }
 
+    @Override
+    public String toString() {
+        return "Materia{" + "id=" + id + ", nombre=" + nombre + ", creditos=" + creditos + ", grupos=" + grupos + '}';
+    }
+    
+    
+
     public static Materia buscarMateria(int id) {
         for (Materia materia : Materia.materias) {
             if (materia.getId() == id) {

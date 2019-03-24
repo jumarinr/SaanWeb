@@ -36,6 +36,18 @@ public class MensajesEspanol {
             put("menu","Menú");
             put("Ganosinno","El estudiante no va perdiendo o no tiene notas");
             put("Noestnot","Estudiante sin notas");
+            put("resgistro","resgitro");
+            put("modifico", "modifico");
+            put("borro", "borro");
+            put("cuerpo_borro", "se le borro la nota con identificación ");
+            put("cuerpo_borro2", " de la materia ");
+            put("cuerpo_resto", "Su nota en ");
+            put("cuerpo_resto2", " con identificación de ");
+            put("cuerpo_resto3", " fue de ");
+            put("cuerpo_resto4", " y vale ");
+            put("cuerpo_resto5", " % de la nota final");
+            put( "asunto", "se le ");
+            put("asunto2", " una nota");
         }
     };
 
