@@ -3,7 +3,7 @@
     Created on : 17/03/2019, 09:27:33 PM
     Author     : pipel
 --%>
-                <%@ include file="header2.jsp" %>
+    <%@ include file="header2.jsp" %>
     <body id="page-top">
         
         <!-- Page Wrapper -->

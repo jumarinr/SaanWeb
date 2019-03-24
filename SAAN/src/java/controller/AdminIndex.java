@@ -62,6 +62,8 @@ public class AdminIndex extends HttpServlet {
         List<Persona> personas = new ArrayList<Persona>();
         List<Grupo> grupos = new ArrayList<Grupo>();
         
+        Persona.registrar(personas, estudiantes, profesores, new Persona("Juan Pablo M", 123, "e@e.com", "000"));
+        
         HttpSession session = request.getSession();   
         session.setAttribute("notas", notas);
         session.setAttribute("materias", materias);

@@ -49,9 +49,7 @@ public class AdminLogin extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         request.setAttribute("mensaje", Mensajes.mensaje);
-
         RequestDispatcher view = request.getRequestDispatcher("login.jsp");
         view.forward(request, response);
     }
@@ -75,30 +73,33 @@ public class AdminLogin extends HttpServlet {
             List<Estudiante> estudiantes = (ArrayList<Estudiante>) session.getAttribute("estudiantes");
             List<Profesor> profesores = (ArrayList<Profesor>) session.getAttribute("profesores");
             int usu = -1;
+            Persona usua;
             if (extra.isInteger(id)) {
                 usu = Persona.login(personas, estudiantes, profesores, Long.parseLong(id), clave);
+                usua = Persona.buscarPersona(personas, estudiantes, profesores, Long.parseLong(id));
             } else {
                 usu = Persona.login(personas, estudiantes, profesores, id, clave);
+                usua = Persona.buscarPersona(personas, estudiantes, profesores, id);
             }
             switch (usu) {
-                case 1:
+                case 0:
+                    session.setAttribute("usu", usua);
                     RequestDispatcher ad = request.getRequestDispatcher("/menuAdministrador");
                     ad.forward(request, response);
                     break;
-                case 2:
-                    //Estudiante
+                case 1:
                     break;
-                case 3:
-                    //Profesor
+                case 2:
                     break;
                 default:
+                    JOptionPane.showMessageDialog(null, "Usuario y/o contraseña incorrectos", "SAAN", JOptionPane.ERROR_MESSAGE);
                     request.setAttribute("mensaje", Mensajes.mensaje);
                     RequestDispatcher view = request.getRequestDispatcher("login.jsp");
                     view.forward(request, response);
                     break;
             }
         } else {
-            RequestDispatcher view = request.getRequestDispatcher("/inicio");
+            RequestDispatcher view = request.getRequestDispatcher("login.jsp");
             view.forward(request, response);
         }
 
