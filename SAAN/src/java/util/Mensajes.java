@@ -8,6 +8,30 @@ import java.util.HashMap;
  */
 public class Mensajes {
 
-    public static HashMap<String,String> mensaje = MensajesEspanol.espanol;
-    
+    public static HashMap<String, String> mensaje = new HashMap<String, String>() {
+        {
+            put("err", "Error");
+            put("reg", "Registrado");
+            put("usuInc", "Usuario o contraseña incorrecto");
+            put("eli", "Eliminado");
+            put("recu", "Recuperación de contraseña");
+            put("codrecu", "Código de recuperación: ");
+            put("mod", "Modificado");
+            put("ideMate", "Identificacion de la materia");
+            put("gru", "Grupo");
+            put("Nonotas", "Materia sin notas");
+            put("Nogrup", "Materia sin grupos");
+            put("megru", "Mejores grupos");
+            put("estper", "Estudiantes que van perdiendo");
+            put("ini", "Inicio");
+            put("saan", "SISTEMA ACADÉMICO ASISTENTE DE NOTAS");
+            put("esp", "Español");
+            put("ing", "Ingles");
+            put("inisec", "Iniciar sesión");
+            put("menu", "Menú");
+            put("Ganosinno", "El estudiante no va perdiendo o no tiene notas");
+            put("Noestnot", "Estudiante sin notas");
+        }
+    };
+
 }

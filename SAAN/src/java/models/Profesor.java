@@ -9,7 +9,6 @@ import java.util.List;
  */
 public class Profesor extends Persona {
 
-    public static List<Profesor> profesores = new ArrayList<Profesor>();
     private List<Grupo> grupos;
 
     public Profesor() {
@@ -30,20 +29,17 @@ public class Profesor extends Persona {
         }
     }
 
-    public static String eliminar(Long identificacion) {
-        Profesor pro = (Profesor) Persona.buscarPersona(identificacion);
+    public static String eliminar(List<Persona> personas, List<Estudiante> estudiantes,
+            List<Profesor> profesores, Long identificacion) {
+        Profesor pro = (Profesor) Persona.buscarPersona(personas, estudiantes, profesores, identificacion);
         if (pro != null) {
             if (pro.getGrupos().size() > 0) {
-                return "No se puede, no insista y vayase >:v";
+                return "No se puede eliminar al profesor";
             }
         }
-        return Persona.eliminar(identificacion);
+        return Persona.eliminar(personas, estudiantes, profesores, identificacion);
     }
 
-    public static String registrar(Profesor pro) {
-        return Persona.registrar(pro);
+    public static void encontrarCorreosYEnviar(List lista, Integer grupo, String Asunto, Integer Materia, String Fecha, String nombre, String Detalle) {
     }
-
-    //public static encontrarCorreosYEnviar(List lista, Integer grupo, String Asunto, Integer Materia, String Fecha, String nombre, String Detalle){
-    //}
 }

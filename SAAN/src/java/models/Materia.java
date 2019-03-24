@@ -15,7 +15,6 @@ import util.Mensajes;
  */
 public class Materia {
 
-    public static List<Materia> materias = new ArrayList<Materia>();
     private int id;
     private String nombre;
     private short creditos;
@@ -71,8 +70,8 @@ public class Materia {
         }
     }
 
-    public static Materia buscarMateria(int id) {
-        for (Materia materia : Materia.materias) {
+    public static Materia buscarMateria(List<Materia> materias, int id) {
+        for (Materia materia : materias) {
             if (materia.getId() == id) {
                 return materia;
             }
@@ -80,30 +79,31 @@ public class Materia {
         return null;
     }
 
-    public static String registrar(Materia materia) {
-        if (Materia.buscarMateria(materia.getId()) != null) {
+    public static String registrar(List<Materia> materias, Materia materia) {
+        if (Materia.buscarMateria(materias, materia.getId()) != null) {
             return Mensajes.mensaje.get("err");
         }
         if (materia.getCreditos() <= 0 || materia.getId() <= 0 || materia.getNombre() == null) {
             return Mensajes.mensaje.get("err");
         }
-        Materia.materias.add(materia);
-        Materia.GuardarCambios();
+        materias.add(materia);
+        Materia.guardarCambios(materias);
         return Mensajes.mensaje.get("err");
     }
 
-    public static String eliminar(int id) {
-        Materia materia = Materia.buscarMateria(id);
+    public static String eliminar(List<Materia> materias, List<Grupo> grupos,
+            List<Matricula> matriculas, int id) {
+        Materia materia = Materia.buscarMateria(materias, id);
         if (materia != null) {
-            Grupo.eliminarPorMateria(id);
-            Materia.materias.remove(materia);
-            Materia.GuardarCambios();
+            Grupo.eliminarPorMateria(grupos, matriculas, id);
+            materias.remove(materia);
+            Materia.guardarCambios(materias);
             return Mensajes.mensaje.get("eli");
         }
         return "err";
     }
 
-    public static void CargarMaterias() {
+    public static void cargarMaterias(List<Materia> materias) {
         String inf = "";
         int ini = 0;
         int fin = 0;
@@ -122,15 +122,15 @@ public class Materia {
             ini = inf.indexOf("<", fin);
             fin = inf.indexOf(">", ini);
             String[] mat = inf.substring(ini + 1, fin).split(",");
-            Materia.materias.add(new Materia(Integer.valueOf(mat[0]), mat[1], Short.valueOf(mat[2])));
+            materias.add(new Materia(Integer.valueOf(mat[0]), mat[1], Short.valueOf(mat[2])));
         }
     }
 
-    public static void GuardarCambios() {
+    public static void guardarCambios(List<Materia> materias) {
         try {
             FileWriter file = new FileWriter("materias.txt");
             file.write("");
-            for (Materia materia : Materia.materias) {
+            for (Materia materia : materias) {
                 file.write("<" + String.valueOf(materia.getId()) + "," + materia.getNombre() + "," + String.valueOf(materia.getCreditos()) + ">");
             }
             file.close();
@@ -138,26 +138,17 @@ public class Materia {
             System.out.println("An error occurred.");
         }
     }
-  public static void GuardarCambios(ArrayList<Materia> lista){
-    try { 
-      FileWriter file = new FileWriter("materias.txt");
-      file.write("");
-      for (Materia materia : lista){
-          file.write("<" + String.valueOf(materia.getId()) + "," + materia.getNombre() + "," + String.valueOf(materia.getCreditos()) + ">");
-      }
-      file.close();
-    } catch (IOException e) {
-      System.out.println("An error occurred.");
-    } 
-  }
-  public static String Registrar(Materia materia, ArrayList<Materia> lista){
-      if(Materia.buscarMateria(materia.getId())!=null){
-          return "err";
-      }
-      else{
-          lista.add(materia);
-          Materia.GuardarCambios(lista);
-          return "reg";
-      }
-  }
+
+    public static void guardarCambios(ArrayList<Materia> lista) {
+        try {
+            FileWriter file = new FileWriter("materias.txt");
+            file.write("");
+            for (Materia materia : lista) {
+                file.write("<" + String.valueOf(materia.getId()) + "," + materia.getNombre() + "," + String.valueOf(materia.getCreditos()) + ">");
+            }
+            file.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+        }
+    }
 }

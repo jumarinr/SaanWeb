@@ -12,7 +12,6 @@ import util.Mensajes;
  */
 public class Grupo {
 
-    public static List<Grupo> grupos = new ArrayList<Grupo>();
     private short numero;
     private Profesor profesor;
     private List<Matricula> matriculas;
@@ -68,8 +67,8 @@ public class Grupo {
         }
     }
 
-    public static Grupo buscarGrupo(short num, int idMateria) {
-        for (Grupo grupo : Grupo.grupos) {
+    public static Grupo buscarGrupo(List<Grupo> grupos, short num, int idMateria) {
+        for (Grupo grupo : grupos) {
             if (grupo.getNumero() == num && idMateria == grupo.getMateria().getId()) {
                 return grupo;
             }
@@ -78,12 +77,12 @@ public class Grupo {
 
     }
 
-    public static String registrar(Grupo gr) {
+    public static String registrar(List<Grupo> grupos, Grupo gr) {
         if (gr.getMateria() != null) {
-            if (gr.buscarGrupo(gr.getNumero(), gr.getMateria().getId()) != null || gr.getProfesor() == null || gr.getNumero() <= 0) {
+            if (gr.buscarGrupo(grupos, gr.getNumero(), gr.getMateria().getId()) != null || gr.getProfesor() == null || gr.getNumero() <= 0) {
                 return Mensajes.mensaje.get("err");
             } else {
-                Grupo.grupos.add(gr);
+                grupos.add(gr);
                 gr.getMateria().getGrupos().add(gr);
                 gr.getProfesor().getGrupos().add(gr);
                 return Mensajes.mensaje.get("reg");
@@ -93,23 +92,23 @@ public class Grupo {
         return Mensajes.mensaje.get("err");
     }
 
-    public static String eliminar(short num, int idMateria) {
-        Grupo grupo = Grupo.buscarGrupo(num, idMateria);
+    public static String eliminar(List<Grupo> grupos, List<Matricula> matriculas, short num, int idMateria) {
+        Grupo grupo = Grupo.buscarGrupo(grupos, num, idMateria);
         if (grupo != null) {
-            Matricula.eliminarPorGrupo(num, idMateria);
+            Matricula.eliminarPorGrupo(matriculas, num, idMateria);
             grupo.getMateria().getGrupos().remove(grupo);
             grupo.getProfesor().getGrupos().remove(grupo);
-            Grupo.grupos.remove(grupo);
+            grupos.remove(grupo);
             return Mensajes.mensaje.get("eli");
         } else {
             return Mensajes.mensaje.get("err");
         }
     }
 
-    public static void eliminarPorMateria(int idMateria) {
-        for (Grupo grupo : Grupo.grupos) {
+    public static void eliminarPorMateria(List<Grupo> grupos, List<Matricula> matriculas, int idMateria) {
+        for (Grupo grupo : grupos) {
             if (grupo.getMateria().getId() == idMateria) {
-                Grupo.eliminar(grupo.numero, idMateria);
+                Grupo.eliminar(grupos, matriculas, grupo.numero, idMateria);
             }
         }
     }

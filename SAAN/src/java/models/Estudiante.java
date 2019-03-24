@@ -3,13 +3,13 @@ package models;
 import java.util.ArrayList;
 import java.util.List;
 import util.Mensajes;
+
 /**
  *
  * @author Juan Pablo
  */
 public class Estudiante extends Persona {
 
-    public static List<Estudiante> estudiantes = new ArrayList<Estudiante>();
     private List<Matricula> matriculas;
 
     public Estudiante(String nombre, long identificacion, String correo, String clave) {
@@ -30,43 +30,43 @@ public class Estudiante extends Persona {
         }
     }
 
-    public static String eliminar(long identificacion) {
-        Matricula.eliminarPorEstudiante(identificacion);
-        return Persona.eliminar(identificacion);
+    public static String eliminar(List<Persona> personas, List<Estudiante> estudiantes,
+            List<Profesor> profesores, List<Matricula> matriculas, long identificacion) {
+        Matricula.eliminarPorEstudiante(matriculas, identificacion);
+        return Persona.eliminar(personas, estudiantes, profesores, identificacion);
     }
 
-    public static String eliminar(String correo) {
-        Persona est = Persona.buscarPersona(correo);
-        Matricula.eliminarPorEstudiante(est.getIdentificacion());
-        return Persona.eliminar(correo);
+    public static String eliminar(List<Persona> personas, List<Estudiante> estudiantes,
+            List<Profesor> profesores, List<Matricula> matriculas, String correo) {
+        Persona est = Persona.buscarPersona(personas, estudiantes, profesores, correo);
+        Matricula.eliminarPorEstudiante(matriculas, est.getIdentificacion());
+        return Persona.eliminar(personas, estudiantes, profesores, correo);
     }
-    public static String registrar(Estudiante est){
-        return Persona.registrar(est);
-    }
-    public static String VanPerdiendo(Matricula mat,Grupo gru){
-        List<Nota> not=mat.getNotas();
-        if(!not.isEmpty()){
-            int sum=0;
-            int sum2=0;
+
+    public static String VanPerdiendo(Matricula mat, Grupo gru) {
+        List<Nota> not = mat.getNotas();
+        if (!not.isEmpty()) {
+            int sum = 0;
+            int sum2 = 0;
             for (Nota nota : not) {
-                if(nota.getMatricula().getGrupo()==gru){
-                    sum +=((nota.getPorcentaje()/100)*nota.getValor());
-                    sum2 +=(nota.getPorcentaje()/100);
-                    
+                if (nota.getMatricula().getGrupo() == gru) {
+                    sum += ((nota.getPorcentaje() / 100) * nota.getValor());
+                    sum2 += (nota.getPorcentaje() / 100);
+
                 }
             }
             int prom;
-            if(sum2!=0 && sum!=0){
-                 prom=sum/sum2;
-            }else{
-                 prom =0;
+            if (sum2 != 0 && sum != 0) {
+                prom = sum / sum2;
+            } else {
+                prom = 0;
             }
-            if(prom<3 && prom!=0){
-                return mat.getEstudiante().getIdentificacion()+" "+mat.getEstudiante().getNombre();
-            }else{
+            if (prom < 3 && prom != 0) {
+                return mat.getEstudiante().getIdentificacion() + " " + mat.getEstudiante().getNombre();
+            } else {
                 return (Mensajes.mensaje.get("Ganosinno"));
             }
-        }else{
+        } else {
             return (Mensajes.mensaje.get("Noestnot"));
         }
     }
