@@ -138,8 +138,6 @@ public class Materia {
             System.out.println("An error occurred.");
         }
     }
-<<<<<<< HEAD
-  }
   public static void GuardarCambios(ArrayList<Materia> lista){
     try { 
       FileWriter file = new FileWriter("materias.txt");
@@ -153,7 +151,7 @@ public class Materia {
     } 
   }
   public static String Registrar(Materia materia, ArrayList<Materia> lista){
-      if(Materia.BuscarMateria(lista, materia.getId())!=null){
+      if(Materia.buscarMateria(materia.getId())!=null){
           return "err";
       }
       else{
@@ -162,6 +160,4 @@ public class Materia {
           return "reg";
       }
   }
-=======
->>>>>>> f1ed61e6feb8aa2e2024a5f319aed6b0445387ba
 }
