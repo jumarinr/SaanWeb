@@ -203,7 +203,7 @@ public class Nota {
     }
 
     public static boolean porcentajeDiferente100(int id_grupo, int estudiante, double porcentaje) {
-        //...
+        
         return true;
     }
 }
