@@ -69,12 +69,11 @@ public class Materia {
             this.grupos = grupos;
         }
     }
-    
+
     @Override
     public String toString() {
         return "Materia{" + "id=" + id + ", nombre=" + nombre + ", creditos=" + creditos + ", grupos=" + grupos + '}';
     }
-    
 
     public static Materia buscarMateria(List<Materia> materias, int id) {
         for (Materia materia : materias) {
@@ -98,10 +97,10 @@ public class Materia {
     }
 
     public static String eliminar(List<Materia> materias, List<Grupo> grupos,
-            List<Matricula> matriculas, int id) {
+            List<Matricula> matriculas, List<Nota> notas, int id) {
         Materia materia = Materia.buscarMateria(materias, id);
         if (materia != null) {
-            Grupo.eliminarPorMateria(grupos, matriculas, id);
+            Grupo.eliminarPorMateria(grupos, matriculas, notas, id);
             materias.remove(materia);
             Materia.guardarCambios(materias);
             return Mensajes.mensaje.get("eli");

@@ -1,18 +1,14 @@
 package models;
 
 import util.EnvioDeCorreo;
-import java.util.ArrayList;
-import java.util.List;
 import util.Mensajes; 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Collections;
 
 public class Nota{
 
-    public static List<Nota> notas = new ArrayList<Nota>();
     private short porcentaje;
     private double valor;
     private String descripcion;
@@ -81,8 +77,8 @@ public class Nota{
     }
 
     //métodos
-    public static Nota buscarNota(long doc_estudiante, int id_materia, int num_grupo, int id) {
-        for (Nota nota : Nota.notas) {
+    public static Nota buscarNota(List<Nota> notas, long doc_estudiante, int id_materia, int num_grupo, int id) {
+        for (Nota nota : notas) {
             if (nota.getMatricula().getEstudiante().getIdentificacion() == doc_estudiante && nota.getMatricula().getGrupo().getNumero() == num_grupo && nota.getMatricula().getGrupo().getMateria().getId() == id_materia && nota.getId() == id) {
                 return nota;
             }
@@ -91,43 +87,20 @@ public class Nota{
 
     }
 
-    public static String registrar(Nota nota, ArrayList<Nota> lista) {
-        if (Nota.buscarNota(nota.getMatricula().getEstudiante().getIdentificacion(), nota.getMatricula().getGrupo().getNumero(), nota.getMatricula().getGrupo().getMateria().getId(), nota.getId()) != null) {
-            return "err";
+    public static String registrar(List<Nota> notas, Nota nota) {
+        if (Nota.buscarNota(notas, nota.getMatricula().getEstudiante().getIdentificacion(), nota.getMatricula().getGrupo().getNumero(), nota.getMatricula().getGrupo().getMateria().getId(), nota.getId()) != null) {
+            return Mensajes.mensaje.get("err");
         } else {
-            lista.add(nota);
+            notas.add(nota);
             nota.getMatricula().getNotas().add(nota);
-            return "reg";
+            return Mensajes.mensaje.get("reg");
         }
     }
 
-    public static ArrayList<Nota> mostrarNotas(ArrayList<Nota> lista, byte est, byte gru, byte mat) {
-        ArrayList<Nota> notas = new ArrayList<Nota>();
-        for (Nota nota : lista) {
-            Grupo grupo = nota.getMatricula().getGrupo();
-            if((est == -1 || est==nota.getMatricula().getEstudiante().getIdentificacion()) && (gru == -1 || (gru == grupo.getNumero() && mat == nota.getMatricula().getGrupo().getMateria().getId()))){}
-                notas.add(nota);
-        }
-        return notas;
-    }
-
-    public static void eliminarPorMatricula(ArrayList<Nota> lista, long doc_estudiante) {
-        int borr = 0;
-        ArrayList<Nota> notasAEliminar = new ArrayList<Nota>();
-        for(Nota nota : lista){
-            if(nota.getMatricula().getEstudiante().getIdentificacion() == doc_estudiante){
-                notasAEliminar.add(nota);
-            }
-        }
-        for(Nota nota : notasAEliminar){
-            lista.remove(nota);
-        }
-    }
-
-    public static String eliminar(long doc_estudiante, int id_materia, int num_grupo, int id) {
-        Nota nota = Nota.buscarNota(doc_estudiante, id_materia, num_grupo, id);
+    public static String eliminar(List<Nota> notas, long doc_estudiante, int id_materia, int num_grupo, int id) {
+        Nota nota = Nota.buscarNota(notas, doc_estudiante, id_materia, num_grupo, id);
         if (nota != null) {
-            Nota.notas.remove(nota);
+            notas.remove(nota);
             nota.getMatricula().getNotas().remove(nota);
             return Mensajes.mensaje.get("eli");
         }

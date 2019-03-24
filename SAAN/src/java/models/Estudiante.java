@@ -31,15 +31,15 @@ public class Estudiante extends Persona {
     }
 
     public static String eliminar(List<Persona> personas, List<Estudiante> estudiantes,
-            List<Profesor> profesores, List<Matricula> matriculas, long identificacion) {
-        Matricula.eliminarPorEstudiante(matriculas, identificacion);
+            List<Profesor> profesores, List<Matricula> matriculas, List<Nota> notas, long identificacion) {
+        Matricula.eliminarPorEstudiante(matriculas, notas, identificacion);
         return Persona.eliminar(personas, estudiantes, profesores, identificacion);
     }
 
     public static String eliminar(List<Persona> personas, List<Estudiante> estudiantes,
-            List<Profesor> profesores, List<Matricula> matriculas, String correo) {
+            List<Profesor> profesores, List<Matricula> matriculas, List<Nota> notas, String correo) {
         Persona est = Persona.buscarPersona(personas, estudiantes, profesores, correo);
-        Matricula.eliminarPorEstudiante(matriculas, est.getIdentificacion());
+        Matricula.eliminarPorEstudiante(matriculas, notas, est.getIdentificacion());
         return Persona.eliminar(personas, estudiantes, profesores, correo);
     }
 

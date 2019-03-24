@@ -132,13 +132,15 @@ public class Persona {
     public static byte login(List<Persona> personas, List<Estudiante> estudiantes,
             List<Profesor> profesores, long identificacion, String clave) {
         Persona usuario = Persona.buscarPersona(personas, estudiantes, profesores, identificacion);
-        if (usuario.getClave().equals(clave)) {
-            if (usuario instanceof Profesor) {
-                return 2;
-            } else if (usuario instanceof Estudiante) {
-                return 1;
-            } else {
-                return 0;
+        if (usuario != null) {
+            if (usuario.getClave().equals(clave)) {
+                if (usuario instanceof Profesor) {
+                    return 2;
+                } else if (usuario instanceof Estudiante) {
+                    return 1;
+                } else {
+                    return 0;
+                }
             }
         }
         return -1;
@@ -147,13 +149,15 @@ public class Persona {
     public static byte login(List<Persona> personas, List<Estudiante> estudiantes,
             List<Profesor> profesores, String correo, String clave) {
         Persona usuario = Persona.buscarPersona(personas, estudiantes, profesores, correo);
-        if (usuario.getClave().equals(clave)) {
-            if (usuario instanceof Profesor) {
-                return 2;
-            } else if (usuario instanceof Estudiante) {
-                return 1;
-            } else {
-                return 0;
+        if (usuario != null) {
+            if (usuario.getClave().equals(clave)) {
+                if (usuario instanceof Profesor) {
+                    return 2;
+                } else if (usuario instanceof Estudiante) {
+                    return 1;
+                } else {
+                    return 0;
+                }
             }
         }
         return -1;

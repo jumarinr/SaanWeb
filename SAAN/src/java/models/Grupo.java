@@ -92,10 +92,10 @@ public class Grupo {
         return Mensajes.mensaje.get("err");
     }
 
-    public static String eliminar(List<Grupo> grupos, List<Matricula> matriculas, short num, int idMateria) {
+    public static String eliminar(List<Grupo> grupos, List<Matricula> matriculas, List<Nota> notas, short num, int idMateria) {
         Grupo grupo = Grupo.buscarGrupo(grupos, num, idMateria);
         if (grupo != null) {
-            Matricula.eliminarPorGrupo(matriculas, num, idMateria);
+            Matricula.eliminarPorGrupo(matriculas, notas, num, idMateria);
             grupo.getMateria().getGrupos().remove(grupo);
             grupo.getProfesor().getGrupos().remove(grupo);
             grupos.remove(grupo);
@@ -105,10 +105,10 @@ public class Grupo {
         }
     }
 
-    public static void eliminarPorMateria(List<Grupo> grupos, List<Matricula> matriculas, int idMateria) {
+    public static void eliminarPorMateria(List<Grupo> grupos, List<Matricula> matriculas, List<Nota> notas, int idMateria) {
         for (Grupo grupo : grupos) {
             if (grupo.getMateria().getId() == idMateria) {
-                Grupo.eliminar(grupos, matriculas, grupo.numero, idMateria);
+                Grupo.eliminar(grupos, matriculas, notas, grupo.numero, idMateria);
             }
         }
     }

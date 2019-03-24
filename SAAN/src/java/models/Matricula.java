@@ -116,13 +116,13 @@ public class Matricula {
         return Mensajes.mensaje.get("err");
     }
 
-    public static String cancelar(List<Matricula> matriculas, long id_estudiante, int id_materia) {
+    public static String cancelar(List<Matricula> matriculas, List<Nota> notas, long id_estudiante, int id_materia) {
         Matricula mat = Matricula.buscar_matricula(matriculas, id_estudiante, id_materia);
         if (mat != null) {
             mat.getGrupo().getMatriculas().remove(mat);
             mat.getEstudiante().getMatriculas().remove(mat);
             for (Nota nota : mat.getNotas()) {
-                Nota.notas.remove(nota);
+                notas.remove(nota);
             }
             mat.getGrupo().getMatriculas().remove(mat);
             mat.getEstudiante().getMatriculas().remove(mat);
@@ -132,19 +132,19 @@ public class Matricula {
         return Mensajes.mensaje.get("err");
     }
 
-    public static void eliminarPorGrupo(List<Matricula> matriculas, int num_grupo, int id_materia) {
+    public static void eliminarPorGrupo(List<Matricula> matriculas, List<Nota> notas, int num_grupo, int id_materia) {
         for (Matricula mat : matriculas) {
             if (mat.getGrupo().getNumero() == num_grupo
                     && mat.getGrupo().getMateria().getId() == id_materia) {
-                Matricula.cancelar(matriculas, mat.getEstudiante().getIdentificacion(), id_materia);
+                Matricula.cancelar(matriculas, notas, mat.getEstudiante().getIdentificacion(), id_materia);
             }
         }
     }
 
-    public static void eliminarPorEstudiante(List<Matricula> matriculas, long identificacion) {
+    public static void eliminarPorEstudiante(List<Matricula> matriculas, List<Nota> notas, long identificacion) {
         for (Matricula mat : matriculas) {
             if (mat.getEstudiante().getIdentificacion() == identificacion) {
-                Matricula.cancelar(matriculas, identificacion, mat.getGrupo().getMateria().getId());
+                Matricula.cancelar(matriculas, notas, identificacion, mat.getGrupo().getMateria().getId());
             }
         }
     }
