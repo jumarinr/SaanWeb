@@ -30,17 +30,9 @@
               <ul class="navbar-nav ml-auto">
 
                   <div class="topbar-divider d-none d-sm-block"></div>
-                  <form action="./inicio" method="POST" style="margin-top: 6.5%;">
-                      <button type="submit" value="español" name="action" style="width: auto; height: auto;"class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off">
-                          ${mensaje.get("esp")}
-                      </button>
-                      <button type="submit" value="ingles" name="action" style="width: auto; height: auto;"class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off">
-                          ${mensaje.get("ing")}
-                      </button>
-                  </form>
                   <!-- Nav Item - User Information -->
                   <li class="nav-item dropdown no-arrow">
-                      <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <a class="nav-link dropdown-toggle" href="./login" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                           <span class="mr-2 d-none d-lg-inline text-gray-600 small">${mensaje.get("inisec")}</span>
                           <img class="img-profile rounded-circle" src="https://cdn1.iconfinder.com/data/icons/unigrid-bluetone-symbols-arrows-vol-3/60/024_106_enter_input_login_door_sign-128.png">
                       </a>

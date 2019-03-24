@@ -141,7 +141,8 @@ public class Persona {
         return -1;
     }
 
-    public static byte login(String correo, String clave) {
+    public static byte login(List<Persona> listaPersona, List<Profesor> listaProfesor,
+            List<Estudiante> listaEstudiante, String correo, String clave) {
         Persona usuario = Persona.buscarPersona(correo);
         if (usuario.getClave().equals(clave)) {
             if (usuario instanceof Profesor) {
