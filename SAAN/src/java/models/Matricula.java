@@ -7,6 +7,7 @@ package models;
 
 import util.Mensajes;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -133,20 +134,25 @@ public class Matricula {
     }
 
     public static void eliminarPorGrupo(List<Matricula> matriculas, List<Nota> notas, int num_grupo, int id_materia) {
-        for (Matricula mat : matriculas) {
+        int bor = 0;
+        for (int i = 0; i < matriculas.size(); i++) {
+            Matricula mat = matriculas.get(i-bor);
             if (mat.getGrupo().getNumero() == num_grupo
                     && mat.getGrupo().getMateria().getId() == id_materia) {
                 Matricula.cancelar(matriculas, notas, mat.getEstudiante().getIdentificacion(), id_materia);
+                bor++;
             }
         }
     }
 
     public static void eliminarPorEstudiante(List<Matricula> matriculas, List<Nota> notas, long identificacion) {
-        for (Matricula mat : matriculas) {
+        int bor = 0;
+        for (int i = 0; i < matriculas.size(); i++) {
+            Matricula mat = matriculas.get(i-bor);
             if (mat.getEstudiante().getIdentificacion() == identificacion) {
                 Matricula.cancelar(matriculas, notas, identificacion, mat.getGrupo().getMateria().getId());
+                bor++;
             }
         }
     }
-
 }

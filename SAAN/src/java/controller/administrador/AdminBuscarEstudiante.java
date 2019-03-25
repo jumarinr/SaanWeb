@@ -18,6 +18,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.swing.JOptionPane;
 import models.Estudiante;
+import models.Matricula;
+import models.Nota;
 import models.Persona;
 import models.Profesor;
 import util.Mensajes;
@@ -51,7 +53,25 @@ public class AdminBuscarEstudiante extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        List<Estudiante> estudiantes = new ArrayList<Estudiante>();
         HttpSession session = request.getSession();
+        if (session.getAttribute("estudiantes") != null) {
+            estudiantes = (ArrayList<Estudiante>) session.getAttribute("estudiantes");
+        }
+        if (request.getParameter("id") != null) {
+            String id = request.getParameter("id");
+            Estudiante est = null;
+            if (extra.isInteger(id)) {
+                est = (Estudiante) Estudiante.buscarPersona(new ArrayList<Persona>(),
+                        estudiantes, new ArrayList<Profesor>(), Long.parseLong(id));
+            } else if (extra.esEmailCorrecto(id)) {
+                est = (Estudiante) Estudiante.buscarPersona(new ArrayList<Persona>(),
+                        estudiantes, new ArrayList<Profesor>(), id);
+            } else {
+                JOptionPane.showMessageDialog(null, "Correo invalido", "SAAN", JOptionPane.ERROR_MESSAGE);
+            }
+            request.setAttribute("usu", est);
+        }
         request.setAttribute("mensaje", Mensajes.mensaje);
         request.setAttribute("usua", session.getAttribute("usua"));
         RequestDispatcher view = request.getRequestDispatcher("adminBusEstudiante.jsp");
@@ -69,23 +89,32 @@ public class AdminBuscarEstudiante extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        //Eliminar
         List<Estudiante> estudiantes = new ArrayList<Estudiante>();
+        List<Matricula> matriculas = new ArrayList<Matricula>();
+        List<Nota> notas = new ArrayList<Nota>();
         HttpSession session = request.getSession();
         if (session.getAttribute("estudiantes") != null) {
             estudiantes = (ArrayList<Estudiante>) session.getAttribute("estudiantes");
         }
-        String id = request.getParameter("id");
-        Estudiante est = null;
-        if (extra.isInteger(id)) {
-            est = (Estudiante) Estudiante.buscarPersona(new ArrayList<Persona>(),
-                    estudiantes, new ArrayList<Profesor>(), Long.parseLong(id));
-        } else if (extra.esEmailCorrecto(id)) {
-            est = (Estudiante) Estudiante.buscarPersona(new ArrayList<Persona>(),
-                    estudiantes, new ArrayList<Profesor>(), id);
-        } else {
-            JOptionPane.showMessageDialog(null, "Correo invalido", "SAAN", JOptionPane.ERROR_MESSAGE);
+        if (session.getAttribute("matriculas") != null) {
+            matriculas = (ArrayList<Matricula>) session.getAttribute("matriculas");
         }
-        request.setAttribute("usu", est);
+        if (session.getAttribute("notas") != null) {
+            notas = (ArrayList<Nota>) session.getAttribute("notas");
+        }
+        if (request.getParameter("doc") != null) {
+            long doc = Long.parseLong(request.getParameter("doc"));
+            if (JOptionPane.showConfirmDialog(null, "Esta seguro de eliminar este registro",
+                    "SAAN", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                JOptionPane.showMessageDialog(null, Estudiante.eliminar(new ArrayList<Persona>(),
+                        estudiantes, new ArrayList<Profesor>(), matriculas, notas, doc), "SAAN",
+                        JOptionPane.INFORMATION_MESSAGE);
+                session.setAttribute("estudiantes", estudiantes);
+                session.setAttribute("matriculas", matriculas);
+                session.setAttribute("notas", notas);
+            }
+        }
         request.setAttribute("mensaje", Mensajes.mensaje);
         request.setAttribute("usua", session.getAttribute("usua"));
         RequestDispatcher view = request.getRequestDispatcher("adminBusEstudiante.jsp");

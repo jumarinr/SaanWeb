@@ -5,8 +5,11 @@
  */
 package util;
 
+import UpperEssential.UpperEssentialLookAndFeel;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  *
@@ -34,6 +37,14 @@ public class extra {
             return true;
         }
         return false;
+    }
+    
+    public static void AplicarLookAndFeel(){
+        try {
+            UIManager.setLookAndFeel(new UpperEssentialLookAndFeel());
+        } catch (UnsupportedLookAndFeelException e) {
+            e.printStackTrace();
+        }
     }
 
 }

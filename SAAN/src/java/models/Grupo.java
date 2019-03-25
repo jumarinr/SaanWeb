@@ -2,6 +2,7 @@ package models;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import util.Mensajes;
@@ -106,9 +107,12 @@ public class Grupo {
     }
 
     public static void eliminarPorMateria(List<Grupo> grupos, List<Matricula> matriculas, List<Nota> notas, int idMateria) {
-        for (Grupo grupo : grupos) {
+        int bor = 0;
+        for (int i = 0; i < grupos.size(); i++) {
+            Grupo grupo = grupos.get(i - bor);
             if (grupo.getMateria().getId() == idMateria) {
                 Grupo.eliminar(grupos, matriculas, notas, grupo.numero, idMateria);
+                bor++;
             }
         }
     }

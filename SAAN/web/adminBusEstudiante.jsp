@@ -37,9 +37,19 @@
                             <br/><br/>
                             <h5>Contraseña:</h5>
                             ${usu.getClave()}
+                            <br/><br/>
+                            <form method="GET" action="./administrador_modificarEstudiante">
+                                <input id="doc" name="doc" type="hidden" value="${usu.getIdentificacion()}">
+                                <button type="submit" class="btn btn-primary">Modificar</button>
+                            </form>
+                            <br/>
+                            <form method="POST" action="./administrador_buscarEstudiante">
+                                <input id="doc" name="doc" type="hidden" value="${usu.getIdentificacion()}">
+                                <button type="submit" class="btn btn-primary">Eliminar</button>
+                            </form>  
                         </c:if>
                         <c:if test="${empty usu}">
-                            No encontrado
+                            No encontrado    
                         </c:if>
                     </div>
                 </div>
@@ -55,7 +65,7 @@
                     </div>
                     <!-- Card Body -->
                     <div class="card-body">
-                        <form method="POST" action="./administrador_buscarEstudiante">
+                        <form method="GET" action="./administrador_buscarEstudiante">
                             <div class="form-group">
                                 <label for="ide">Identificación o correo</label>
                                 <input type="text" class="form-control" id="id" name="id" placeholder="Ingrese el documento de identidad o correco electronico" required>
