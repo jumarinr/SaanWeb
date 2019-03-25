@@ -102,7 +102,6 @@ public class AdminIndex extends HttpServlet {
         session.setAttribute("grupos", grupos);
         request.setAttribute("usua", session.getAttribute("usua"));
 
-        JOptionPane.showMessageDialog(null, "Index " + estudiantes.size());
         request.setAttribute("mensaje", Mensajes.mensaje);
 
         RequestDispatcher view = request.getRequestDispatcher("index.jsp");

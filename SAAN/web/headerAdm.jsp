@@ -47,7 +47,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Opciones</h6>
                         <a class="collapse-item" href="./administrador_registrarEstudiante">Registrar</a>
-                        <a class="collapse-item" href="#">Consultar</a>
+                        <a class="collapse-item" href="./administrador_buscarEstudiante">Consultar</a>
                         <a class="collapse-item" href="#">Modificar</a>
                         <a class="collapse-item" href="#">Eliminar</a>
                     </div>

@@ -5,6 +5,9 @@
  */
 package util;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  *
  * @author Juan Pablo
@@ -16,6 +19,19 @@ public class extra {
             Long.parseLong(dato);
             return true;
         } catch (Exception e) {
+        }
+        return false;
+    }
+
+    public static boolean esEmailCorrecto(String email) {
+        Pattern pattern = Pattern
+                .compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+                        + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+
+        Matcher mather = pattern.matcher(email);
+
+        if (mather.find() == true) {
+            return true;
         }
         return false;
     }
