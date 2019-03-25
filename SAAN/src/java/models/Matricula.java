@@ -16,7 +16,7 @@ import java.util.List;
 public class Matricula {
 
     private double notaFinal;
-    private short semestre;
+    private int semestre;
     private Estudiante estudiante;
     private Grupo grupo;
     private List<Nota> notas;
@@ -24,7 +24,7 @@ public class Matricula {
     public Matricula() {
     }
 
-    public Matricula(short semestre, Estudiante estudiante, Grupo grupo) {
+    public Matricula(int semestre, Estudiante estudiante, Grupo grupo) {
         this.setSemestre(semestre);
         this.setEstudiante(estudiante);
         this.setGrupo(grupo);
@@ -49,11 +49,11 @@ public class Matricula {
         }
     }
 
-    public short getSemestre() {
+    public int getSemestre() {
         return semestre;
     }
 
-    public void setSemestre(short semestre) {
+    public void setSemestre(int semestre) {
         if (semestre > 0) {
             this.semestre = semestre;
         }

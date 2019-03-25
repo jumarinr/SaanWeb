@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.swing.JOptionPane;
 import util.*;
 import models.*;
 
@@ -37,7 +38,7 @@ public class AdminIndex extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -52,7 +53,7 @@ public class AdminIndex extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         //se crea listas
         List<Nota> notas = new ArrayList<Nota>();
         List<Materia> materias = new ArrayList<Materia>();
@@ -61,10 +62,37 @@ public class AdminIndex extends HttpServlet {
         List<Matricula> matriculas = new ArrayList<Matricula>();
         List<Persona> personas = new ArrayList<Persona>();
         List<Grupo> grupos = new ArrayList<Grupo>();
-        
-        Persona.registrar(personas, estudiantes, profesores, new Persona("Juan Pablo M", 123, "e@e.com", "000"));
-        
-        HttpSession session = request.getSession();   
+
+        HttpSession session = request.getSession();
+        if(session.getAttribute("notas") != null) {
+            notas = (ArrayList<Nota>) session.getAttribute("notas");
+        }
+        if(session.getAttribute("materias") != null) {
+            materias = (ArrayList<Materia>) session.getAttribute("materias");
+        }
+        if(session.getAttribute("estudiantes") != null) {
+            estudiantes = (ArrayList<Estudiante>) session.getAttribute("estudiantes");
+        }
+        if(session.getAttribute("profesores") != null) {
+            profesores = (ArrayList<Profesor>) session.getAttribute("profesores");
+        }
+        if(session.getAttribute("matriculas") != null) {
+            matriculas = (ArrayList<Matricula>) session.getAttribute("matriculas");
+        }
+        if(session.getAttribute("personas") != null) {
+            personas = (ArrayList<Persona>) session.getAttribute("personas");
+        }
+        if(session.getAttribute("grupos") != null) {
+            grupos = (ArrayList<Grupo>) session.getAttribute("grupos");
+        }
+            
+        if (session.getAttribute("personas") != null) {
+            if (((ArrayList<Persona>) session.getAttribute("personas")).size() == 0) {
+                generarDatosFicticios.crearTodosLosDatosFicticios(notas, materias, estudiantes, profesores, matriculas, personas, grupos);
+            }
+        } else {
+            generarDatosFicticios.crearTodosLosDatosFicticios(notas, materias, estudiantes, profesores, matriculas, personas, grupos);
+        }
         session.setAttribute("notas", notas);
         session.setAttribute("materias", materias);
         session.setAttribute("estudiantes", estudiantes);
@@ -73,9 +101,10 @@ public class AdminIndex extends HttpServlet {
         session.setAttribute("personas", personas);
         session.setAttribute("grupos", grupos);
         request.setAttribute("usua", session.getAttribute("usua"));
-                
+
+        JOptionPane.showMessageDialog(null, "Index " + estudiantes.size());
         request.setAttribute("mensaje", Mensajes.mensaje);
-        
+
         RequestDispatcher view = request.getRequestDispatcher("index.jsp");
         view.forward(request, response);
     }
@@ -88,7 +117,6 @@ public class AdminIndex extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    
     /**
      * Returns a short description of the servlet.
      *

@@ -17,10 +17,10 @@ public class Materia {
 
     private int id;
     private String nombre;
-    private short creditos;
+    private int creditos;
     private List<Grupo> grupos;
 
-    public Materia(int id, String nombre, short creditos) {
+    public Materia(int id, String nombre, int creditos) {
         this.setId(id);
         this.setNombre(nombre);
         this.setCreditos(creditos);
@@ -50,11 +50,11 @@ public class Materia {
         }
     }
 
-    public short getCreditos() {
+    public int getCreditos() {
         return creditos;
     }
 
-    public void setCreditos(short creditos) {
+    public void setCreditos(int creditos) {
         if (creditos > 0) {
             this.creditos = creditos;
         }
