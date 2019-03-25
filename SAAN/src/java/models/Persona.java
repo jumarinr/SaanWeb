@@ -112,6 +112,9 @@ public class Persona {
         if (Persona.buscarPersona(personas, estudiantes, profesores, usuario.getIdentificacion()) != null) {
             return Mensajes.mensaje.get("err");
         }
+        if (Persona.buscarPersona(personas, estudiantes, profesores, usuario.getCorreo()) != null) {
+            return Mensajes.mensaje.get("err");
+        }
         if (usuario.getIdentificacion() <= 0 || usuario.getNombre() == null
                 || usuario.getClave() == null || usuario.getCorreo() == null) {
             return Mensajes.mensaje.get("err");

@@ -59,8 +59,8 @@
                 <div id="collapsePages2" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Opciones</h6>
-                        <a class="collapse-item" href="#">Registrar</a>
-                        <a class="collapse-item" href="#">Consultar</a>
+                        <a class="collapse-item" href="./administrador_registrarProfesor">Registrar</a>
+                        <a class="collapse-item" href="./administrador_buscarProfesor">Consultar</a>
                     </div>
                 </div>
             </li>

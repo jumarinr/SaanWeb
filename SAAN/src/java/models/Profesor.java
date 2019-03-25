@@ -2,6 +2,7 @@ package models;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -30,11 +31,11 @@ public class Profesor extends Persona {
     }
 
     public static String eliminar(List<Persona> personas, List<Estudiante> estudiantes,
-            List<Profesor> profesores, Long identificacion) {
+            List<Profesor> profesores, long identificacion) {
         Profesor pro = (Profesor) Persona.buscarPersona(personas, estudiantes, profesores, identificacion);
         if (pro != null) {
             if (pro.getGrupos().size() > 0) {
-                return "No se puede eliminar al profesor";
+                return "No se puede eliminar al profesor, ya que tiene grupos en los que enseña";
             }
         }
         return Persona.eliminar(personas, estudiantes, profesores, identificacion);

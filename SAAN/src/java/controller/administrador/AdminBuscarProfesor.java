@@ -6,7 +6,6 @@
 package controller.administrador;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
@@ -29,8 +28,8 @@ import util.extra;
  *
  * @author Juan Pablo
  */
-@WebServlet(urlPatterns = {"/administrador_buscarEstudiante"})
-public class AdminBuscarEstudiante extends HttpServlet {
+@WebServlet(urlPatterns = {"/administrador_buscarProfesor"})
+public class AdminBuscarProfesor extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -53,28 +52,28 @@ public class AdminBuscarEstudiante extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        List<Estudiante> estudiantes = new ArrayList<Estudiante>();
+        List<Profesor> profesores = new ArrayList<Profesor>();
         HttpSession session = request.getSession();
-        if (session.getAttribute("estudiantes") != null) {
-            estudiantes = (ArrayList<Estudiante>) session.getAttribute("estudiantes");
+        if (session.getAttribute("profesores") != null) {
+            profesores = (ArrayList<Profesor>) session.getAttribute("profesores");
         }
         if (request.getParameter("id") != null) {
             String id = request.getParameter("id").toLowerCase();
-            Estudiante est = null;
+            Profesor pro = null;
             if (extra.isInteger(id)) {
-                est = (Estudiante) Estudiante.buscarPersona(new ArrayList<Persona>(),
-                        estudiantes, new ArrayList<Profesor>(), Long.parseLong(id));
+                pro = (Profesor) Profesor.buscarPersona(new ArrayList<Persona>(),
+                       new ArrayList<Estudiante>(), profesores, Long.parseLong(id));
             } else if (extra.esEmailCorrecto(id)) {
-                est = (Estudiante) Estudiante.buscarPersona(new ArrayList<Persona>(),
-                        estudiantes, new ArrayList<Profesor>(), id);
+                pro = (Profesor) Profesor.buscarPersona(new ArrayList<Persona>(),
+                       new ArrayList<Estudiante>(), profesores, id);
             } else {
                 JOptionPane.showMessageDialog(null, "Correo invalido", "SAAN", JOptionPane.ERROR_MESSAGE);
             }
-            request.setAttribute("usu", est);
+            request.setAttribute("usu", pro);
         }
         request.setAttribute("mensaje", Mensajes.mensaje);
         request.setAttribute("usua", session.getAttribute("usua"));
-        RequestDispatcher view = request.getRequestDispatcher("adminBusEstudiante.jsp");
+        RequestDispatcher view = request.getRequestDispatcher("adminBusProfesor.jsp");
         view.forward(request, response);
     }
 
@@ -90,34 +89,24 @@ public class AdminBuscarEstudiante extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //Eliminar
-        List<Estudiante> estudiantes = new ArrayList<Estudiante>();
-        List<Matricula> matriculas = new ArrayList<Matricula>();
-        List<Nota> notas = new ArrayList<Nota>();
+        List<Profesor> profesores = new ArrayList<Profesor>();
         HttpSession session = request.getSession();
-        if (session.getAttribute("estudiantes") != null) {
-            estudiantes = (ArrayList<Estudiante>) session.getAttribute("estudiantes");
-        }
-        if (session.getAttribute("matriculas") != null) {
-            matriculas = (ArrayList<Matricula>) session.getAttribute("matriculas");
-        }
-        if (session.getAttribute("notas") != null) {
-            notas = (ArrayList<Nota>) session.getAttribute("notas");
+        if (session.getAttribute("profesores") != null) {
+            profesores = (ArrayList<Profesor>) session.getAttribute("profesores");
         }
         if (request.getParameter("doc") != null) {
             long doc = Long.parseLong(request.getParameter("doc"));
             if (JOptionPane.showConfirmDialog(null, "Esta seguro de eliminar este registro",
                     "SAAN", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                JOptionPane.showMessageDialog(null, Estudiante.eliminar(new ArrayList<Persona>(),
-                        estudiantes, new ArrayList<Profesor>(), matriculas, notas, doc), "SAAN",
+                JOptionPane.showMessageDialog(null, Profesor.eliminar(new ArrayList<Persona>(),
+                        new ArrayList<Estudiante>(), profesores, doc), "SAAN",
                         JOptionPane.INFORMATION_MESSAGE);
-                session.setAttribute("estudiantes", estudiantes);
-                session.setAttribute("matriculas", matriculas);
-                session.setAttribute("notas", notas);
+                session.setAttribute("profesores", profesores);
             }
         }
         request.setAttribute("mensaje", Mensajes.mensaje);
         request.setAttribute("usua", session.getAttribute("usua"));
-        RequestDispatcher view = request.getRequestDispatcher("adminBusEstudiante.jsp");
+        RequestDispatcher view = request.getRequestDispatcher("adminBusProfesor.jsp");
         view.forward(request, response);
     }
 
