@@ -12,12 +12,12 @@ import util.Mensajes;
  */
 public class Grupo {
 
-    private short numero;
+    private int numero;
     private Profesor profesor;
     private List<Matricula> matriculas;
     private Materia materia;
 
-    public Grupo(short numero, Profesor profesor, Materia materia) {
+    public Grupo(int numero, Profesor profesor, Materia materia) {
         this.setNumero(numero);
         this.setProfesor(profesor);
         this.setMateria(materia);
@@ -27,11 +27,11 @@ public class Grupo {
     public Grupo() {
     }
 
-    public short getNumero() {
+    public int getNumero() {
         return numero;
     }
 
-    public void setNumero(short numero) {
+    public void setNumero(int numero) {
         if (numero > 0) {
             this.numero = numero;
         }
@@ -67,7 +67,7 @@ public class Grupo {
         }
     }
 
-    public static Grupo buscarGrupo(List<Grupo> grupos, short num, int idMateria) {
+    public static Grupo buscarGrupo(List<Grupo> grupos, int num, int idMateria) {
         for (Grupo grupo : grupos) {
             if (grupo.getNumero() == num && idMateria == grupo.getMateria().getId()) {
                 return grupo;
@@ -92,7 +92,7 @@ public class Grupo {
         return Mensajes.mensaje.get("err");
     }
 
-    public static String eliminar(List<Grupo> grupos, List<Matricula> matriculas, List<Nota> notas, short num, int idMateria) {
+    public static String eliminar(List<Grupo> grupos, List<Matricula> matriculas, List<Nota> notas, int num, int idMateria) {
         Grupo grupo = Grupo.buscarGrupo(grupos, num, idMateria);
         if (grupo != null) {
             Matricula.eliminarPorGrupo(matriculas, notas, num, idMateria);
