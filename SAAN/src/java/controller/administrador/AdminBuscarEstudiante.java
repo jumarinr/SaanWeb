@@ -18,6 +18,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.swing.JOptionPane;
 import models.Estudiante;
+import models.Matricula;
+import models.Nota;
 import models.Persona;
 import models.Profesor;
 import util.Mensajes;
@@ -27,8 +29,8 @@ import util.extra;
  *
  * @author Juan Pablo
  */
-@WebServlet(urlPatterns = {"/administrador_registrarEstudiante"})
-public class AdminRegistrarEstudiante extends HttpServlet {
+@WebServlet(urlPatterns = {"/administrador_buscarEstudiante"})
+public class AdminBuscarEstudiante extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -56,11 +58,23 @@ public class AdminRegistrarEstudiante extends HttpServlet {
         if (session.getAttribute("estudiantes") != null) {
             estudiantes = (ArrayList<Estudiante>) session.getAttribute("estudiantes");
         }
-        session.setAttribute("estudiantes", estudiantes);
-        request.setAttribute("estudiantes", estudiantes);
+        if (request.getParameter("id") != null) {
+            String id = request.getParameter("id");
+            Estudiante est = null;
+            if (extra.isInteger(id)) {
+                est = (Estudiante) Estudiante.buscarPersona(new ArrayList<Persona>(),
+                        estudiantes, new ArrayList<Profesor>(), Long.parseLong(id));
+            } else if (extra.esEmailCorrecto(id)) {
+                est = (Estudiante) Estudiante.buscarPersona(new ArrayList<Persona>(),
+                        estudiantes, new ArrayList<Profesor>(), id);
+            } else {
+                JOptionPane.showMessageDialog(null, "Correo invalido", "SAAN", JOptionPane.ERROR_MESSAGE);
+            }
+            request.setAttribute("usu", est);
+        }
         request.setAttribute("mensaje", Mensajes.mensaje);
         request.setAttribute("usua", session.getAttribute("usua"));
-        RequestDispatcher view = request.getRequestDispatcher("adminRegEstudiante.jsp");
+        RequestDispatcher view = request.getRequestDispatcher("adminBusEstudiante.jsp");
         view.forward(request, response);
     }
 
@@ -75,35 +89,35 @@ public class AdminRegistrarEstudiante extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        //Eliminar
         List<Estudiante> estudiantes = new ArrayList<Estudiante>();
-        List<Profesor> profesores = new ArrayList<Profesor>();
-        List<Persona> personas = new ArrayList<Persona>();
+        List<Matricula> matriculas = new ArrayList<Matricula>();
+        List<Nota> notas = new ArrayList<Nota>();
         HttpSession session = request.getSession();
-        if (session.getAttribute("estudiantes") != null && session.getAttribute("profesores")
-                != null && session.getAttribute("personas") != null) {
+        if (session.getAttribute("estudiantes") != null) {
             estudiantes = (ArrayList<Estudiante>) session.getAttribute("estudiantes");
-            profesores = (ArrayList<Profesor>) session.getAttribute("profesores");
-            personas = (ArrayList<Persona>) session.getAttribute("personas");
         }
-        long documento = Long.parseLong(request.getParameter("identificacion"));
-        String nombre = request.getParameter("nombre");
-        String correo = request.getParameter("correo").toLowerCase();
-        String clave = request.getParameter("clave");
-        Estudiante p = new Estudiante(nombre, documento, correo, clave);
-
-        if (extra.esEmailCorrecto(correo)) {
-            JOptionPane.showMessageDialog(null, Estudiante.registrar(personas,
-                    estudiantes, profesores, p), "SAAN", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(null, "Correo invalido", "SAAN",
-                    JOptionPane.ERROR_MESSAGE);
+        if (session.getAttribute("matriculas") != null) {
+            matriculas = (ArrayList<Matricula>) session.getAttribute("matriculas");
         }
-
-        session.setAttribute("estudiantes", estudiantes);
-        request.setAttribute("estudiantes", estudiantes);
+        if (session.getAttribute("notas") != null) {
+            notas = (ArrayList<Nota>) session.getAttribute("notas");
+        }
+        if (request.getParameter("doc") != null) {
+            long doc = Long.parseLong(request.getParameter("doc"));
+            if (JOptionPane.showConfirmDialog(null, "Esta seguro de eliminar este registro",
+                    "SAAN", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                JOptionPane.showMessageDialog(null, Estudiante.eliminar(new ArrayList<Persona>(),
+                        estudiantes, new ArrayList<Profesor>(), matriculas, notas, doc), "SAAN",
+                        JOptionPane.INFORMATION_MESSAGE);
+                session.setAttribute("estudiantes", estudiantes);
+                session.setAttribute("matriculas", matriculas);
+                session.setAttribute("notas", notas);
+            }
+        }
         request.setAttribute("mensaje", Mensajes.mensaje);
         request.setAttribute("usua", session.getAttribute("usua"));
-        RequestDispatcher view = request.getRequestDispatcher("adminRegEstudiante.jsp");
+        RequestDispatcher view = request.getRequestDispatcher("adminBusEstudiante.jsp");
         view.forward(request, response);
     }
 

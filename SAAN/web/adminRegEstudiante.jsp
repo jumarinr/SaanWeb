@@ -32,7 +32,7 @@
                     <!-- Card Body -->
                     <c:if test="${not empty estudiantes}">
                         <div class="card-body">    
-                            <table class="table" style="margin-top: -12%;width: auto;">
+                            <table class="table" style="margin-top: -10px;width: auto;">
                                 <thead>
                                     <tr>
                                                <th scope="col">Nombre</th>
@@ -45,7 +45,7 @@
                                        <c:forEach items="${estudiantes}" var="est">
                                                <tr>
                                                        <td>${est.getNombre()}</td>
-                                                       <td>${est.getIdentificacion()}</td>
+                                                       <td><a href="./administrador_buscarEstudiante?id=${est.getIdentificacion()}">${est.getIdentificacion()}</a></td>
                                                        <td>${est.getCorreo()}</td>
                                             <td>${est.getClave()}</td>
                                                    </tr>
