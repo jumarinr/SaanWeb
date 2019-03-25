@@ -81,6 +81,7 @@ public class AdminLogin extends HttpServlet {
                 usu = Persona.login(personas, estudiantes, profesores, id, clave);
                 usua = Persona.buscarPersona(personas, estudiantes, profesores, id);
             }
+            
             switch (usu) {
                 case 0:
                     session.setAttribute("usua", usua);
@@ -90,6 +91,10 @@ public class AdminLogin extends HttpServlet {
                 case 1:
                     break;
                 case 2:
+//                    System.out.println("entró");
+                    session.setAttribute("usua", usua);
+                    RequestDispatcher pro = request.getRequestDispatcher("/ProfMenu");
+                    pro.forward(request, response);
                     break;
                 default:
                     JOptionPane.showMessageDialog(null, "Usuario y/o contraseña incorrectos", "SAAN", JOptionPane.ERROR_MESSAGE);
