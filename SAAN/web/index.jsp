@@ -46,6 +46,13 @@
                         <span style="font-size: 70%;">${mensaje.get("estper")}</span>
                     </a>
                 </li>
+                <!--Generar datos ficticios-->
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="./datosFicticios">
+                        <img class="img-profile rounded-circle" src="https://cdn2.iconfinder.com/data/icons/ui-data-storage-sever/64/data-storage-add-256.png">
+                        <span style="font-size: 70%;">Generar datos ficticios</span>
+                    </a>
+                </li>
 
             </ul>
             <!-- End of Sidebar -->
