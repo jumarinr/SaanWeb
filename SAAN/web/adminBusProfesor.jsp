@@ -38,6 +38,31 @@
                             <h5>Contraseña:</h5>
                             ${usu.getClave()}
                             <br/><br/>
+                            <h5>Grupos en los que enseña</h5>
+                            <c:if test="${not empty usu.getGrupos()}">
+                                  <table class="table" style="margin-top: -10px;width: auto;">
+                                    <thead>
+                                        <tr>
+                                                   <th scope="col">Codigo</th>
+                                                   <th scope="col">Nombre</th>
+                                                   <th scope="col">Grupo</th>
+                                               </tr>
+                                    </thead>
+                                    <tbody>
+                                           <c:forEach items="${usu.getGrupos()}" var="gru">
+                                                   <tr>
+                                                           <td><a href="./administrador_buscarMateria?id=${gru.getMateria().getId()}">${gru.getMateria().getId()}</a></td>
+                                                           <td> ${gru.getMateria().getNombre()}</td>
+                                                           <td><a href="./administrador_buscarGrupo?id=${gru.getMateria().getId()}&num=${gru.getNumero()}">${gru.getNumero()}</a></td>
+                                                       </tr>
+                                               </c:forEach>
+                                        </tbody>
+                                    </table>
+                            </c:if>
+                            <c:if test="${empty usu.getGrupos()}">
+                                Ninguno
+                            </c:if>
+                            <br/><br/>
                             <form method="GET" action="./administrador_modificarProfesor">
                                 <input id="doc" name="doc" type="hidden" value="${usu.getIdentificacion()}">
                                 <button type="submit" class="btn btn-primary">Modificar</button>

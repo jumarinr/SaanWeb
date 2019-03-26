@@ -38,6 +38,31 @@
                             <h5>Contraseña:</h5>
                             ${usu.getClave()}
                             <br/><br/>
+                            <h5>Materias matriculadas</h5>
+                            <c:if test="${not empty usu.getMatriculas()}">
+                                <table class="table" style="margin-top: -10px;width: auto;">
+                                    <thead>
+                                        <tr>
+                                                   <th scope="col">Codigo</th>
+                                                   <th scope="col">Nombre</th>
+                                                   <th scope="col">Grupo</th>
+                                               </tr>
+                                    </thead>
+                                    <tbody>
+                                           <c:forEach items="${usu.getMatriculas()}" var="mat">
+                                                   <tr>
+                                                           <td><a href="./administrador_buscarMateria?id=${mat.getGrupo().getMateria().getId()}">${mat.getGrupo().getMateria().getId()}</a></td>
+                                                           <td> ${mat.getGrupo().getMateria().getNombre()}</td>
+                                                           <td><a href="./administrador_buscarGrupo?id=${mat.getGrupo().getMateria().getId()}&num=${mat.getGrupo().getNumero()}">${mat.getGrupo().getNumero()}</a></td>
+                                                       </tr>
+                                               </c:forEach>
+                                        </tbody>
+                                    </table>
+                            </c:if>
+                            <c:if test="${empty usu.getMatriculas()}">
+                                Ninguna
+                            </c:if>
+                            <br/><br/>
                             <form method="GET" action="./administrador_modificarEstudiante">
                                 <input id="doc" name="doc" type="hidden" value="${usu.getIdentificacion()}">
                                 <button type="submit" class="btn btn-primary">Modificar</button>
