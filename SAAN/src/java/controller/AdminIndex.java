@@ -62,7 +62,7 @@ public class AdminIndex extends HttpServlet {
         List<Matricula> matriculas = new ArrayList<Matricula>();
         List<Persona> personas = new ArrayList<Persona>();
         List<Grupo> grupos = new ArrayList<Grupo>();
-
+        Materia.cargarMaterias(materias);
         HttpSession session = request.getSession();
         if(session.getAttribute("notas") != null) {
             notas = (ArrayList<Nota>) session.getAttribute("notas");
@@ -86,13 +86,6 @@ public class AdminIndex extends HttpServlet {
             grupos = (ArrayList<Grupo>) session.getAttribute("grupos");
         }
 
-        if (session.getAttribute("personas") != null) {
-            if (((ArrayList<Persona>) session.getAttribute("personas")).size() == 0) {
-                generarDatosFicticios.crearTodosLosDatosFicticios(notas, materias, estudiantes, profesores, matriculas, personas, grupos);
-            }
-        } else {
-            generarDatosFicticios.crearTodosLosDatosFicticios(notas, materias, estudiantes, profesores, matriculas, personas, grupos);
-        }
         session.setAttribute("notas", notas);
         session.setAttribute("materias", materias);
         session.setAttribute("estudiantes", estudiantes);
