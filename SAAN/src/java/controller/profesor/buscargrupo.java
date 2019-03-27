@@ -14,29 +14,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.swing.JOptionPane;
 import util.Mensajes;
 
 /**
  *
- * @author Juan Pablo
+ * @author pipel
  */
-@WebServlet(urlPatterns = {"/ProfMenu"})
-public class ProfMenu extends HttpServlet {
+@WebServlet(name = "buscargrupo", urlPatterns = {"/buscargrupo"})
+public class buscargrupo extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
      *
      * @param request servlet request
      * @param response servlet response
@@ -49,7 +38,8 @@ public class ProfMenu extends HttpServlet {
         HttpSession session = request.getSession();
         request.setAttribute("mensaje", Mensajes.mensaje);
         request.setAttribute("usua", session.getAttribute("usua"));
-        RequestDispatcher view = request.getRequestDispatcher("menuProf.jsp");
+        response.setContentType("text/html;charset=UTF-8");
+        RequestDispatcher view = request.getRequestDispatcher("profBuscarGrupo.jsp");
         view.forward(request, response);
     }
 
@@ -64,11 +54,7 @@ public class ProfMenu extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        request.setAttribute("mensaje", Mensajes.mensaje);
-        request.setAttribute("usua", session.getAttribute("usua"));
-        RequestDispatcher view = request.getRequestDispatcher("menuProf.jsp");
-        view.forward(request, response);
+        
     }
 
     /**
@@ -80,5 +66,4 @@ public class ProfMenu extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
 }
