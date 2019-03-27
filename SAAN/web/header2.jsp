@@ -19,7 +19,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>SAAN: ${mensaje.get("ini")}</title>
+        <title>SAAN</title>
 
         <!-- Custom fonts for this template-->
         <link href="dashboard/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">

@@ -7,6 +7,7 @@ package models;
 
 import util.Mensajes;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -15,9 +16,8 @@ import java.util.List;
  */
 public class Matricula {
 
-    public static List<Matricula> matriculas = new ArrayList<Matricula>();
     private double notaFinal;
-    private short semestre;
+    private int semestre;
     private Estudiante estudiante;
     private Grupo grupo;
     private List<Nota> notas;
@@ -25,7 +25,7 @@ public class Matricula {
     public Matricula() {
     }
 
-    public Matricula(short semestre, Estudiante estudiante, Grupo grupo) {
+    public Matricula(int semestre, Estudiante estudiante, Grupo grupo) {
         this.setSemestre(semestre);
         this.setEstudiante(estudiante);
         this.setGrupo(grupo);
@@ -50,11 +50,11 @@ public class Matricula {
         }
     }
 
-    public short getSemestre() {
+    public int getSemestre() {
         return semestre;
     }
 
-    public void setSemestre(short semestre) {
+    public void setSemestre(int semestre) {
         if (semestre > 0) {
             this.semestre = semestre;
         }
@@ -90,8 +90,8 @@ public class Matricula {
         }
     }
 
-    public static Matricula buscar_matricula(long id_estudiante, int id_materia) {
-        for (Matricula ma : Matricula.matriculas) {
+    public static Matricula buscar_matricula(List<Matricula> matriculas, long id_estudiante, int id_materia) {
+        for (Matricula ma : matriculas) {
             Grupo gr = ma.getGrupo();
             if (ma.getEstudiante().getIdentificacion() == id_estudiante
                     && gr.getMateria().getId() == id_materia) {
@@ -101,9 +101,9 @@ public class Matricula {
         return null;
     }
 
-    public static String matricular(Matricula matr) {
+    public static String matricular(List<Matricula> matriculas, Matricula matr) {
         Grupo gr = matr.getGrupo();
-        if (Matricula.buscar_matricula(matr.getEstudiante().getIdentificacion(),
+        if (Matricula.buscar_matricula(matriculas, matr.getEstudiante().getIdentificacion(),
                 gr.getMateria().getId()) != null) {
             return Mensajes.mensaje.get("err");
         }
@@ -111,43 +111,48 @@ public class Matricula {
                 || matr.getSemestre() <= 0) {
             return Mensajes.mensaje.get("err");
         }
-        Matricula.matriculas.add(matr);
+        matriculas.add(matr);
         matr.getGrupo().getMatriculas().add(matr);
         matr.getEstudiante().getMatriculas().add(matr);
         return Mensajes.mensaje.get("err");
     }
 
-    public static String cancelar(long id_estudiante, int id_materia) {
-        Matricula mat = Matricula.buscar_matricula(id_estudiante, id_materia);
+    public static String cancelar(List<Matricula> matriculas, List<Nota> notas, long id_estudiante, int id_materia) {
+        Matricula mat = Matricula.buscar_matricula(matriculas, id_estudiante, id_materia);
         if (mat != null) {
             mat.getGrupo().getMatriculas().remove(mat);
             mat.getEstudiante().getMatriculas().remove(mat);
             for (Nota nota : mat.getNotas()) {
-                Nota.notas.remove(nota);
+                notas.remove(nota);
             }
             mat.getGrupo().getMatriculas().remove(mat);
             mat.getEstudiante().getMatriculas().remove(mat);
-            Matricula.matriculas.remove(mat);
+            matriculas.remove(mat);
             return Mensajes.mensaje.get("reg");
         }
         return Mensajes.mensaje.get("err");
     }
 
-    public static void eliminarPorGrupo(int num_grupo, int id_materia) {
-        for (Matricula mat : Matricula.matriculas) {
+    public static void eliminarPorGrupo(List<Matricula> matriculas, List<Nota> notas, int num_grupo, int id_materia) {
+        int bor = 0;
+        for (int i = 0; i < matriculas.size(); i++) {
+            Matricula mat = matriculas.get(i-bor);
             if (mat.getGrupo().getNumero() == num_grupo
                     && mat.getGrupo().getMateria().getId() == id_materia) {
-                Matricula.cancelar(mat.getEstudiante().getIdentificacion(), id_materia);
-            }
-        }
-    }
-    
-    public static void eliminarPorEstudiante(long identificacion){
-        for(Matricula mat: Matricula.matriculas){
-            if(mat.getEstudiante().getIdentificacion() == identificacion){
-                Matricula.cancelar(identificacion, mat.getGrupo().getMateria().getId());
+                Matricula.cancelar(matriculas, notas, mat.getEstudiante().getIdentificacion(), id_materia);
+                bor++;
             }
         }
     }
 
+    public static void eliminarPorEstudiante(List<Matricula> matriculas, List<Nota> notas, long identificacion) {
+        int bor = 0;
+        for (int i = 0; i < matriculas.size(); i++) {
+            Matricula mat = matriculas.get(i-bor);
+            if (mat.getEstudiante().getIdentificacion() == identificacion) {
+                Matricula.cancelar(matriculas, notas, identificacion, mat.getGrupo().getMateria().getId());
+                bor++;
+            }
+        }
+    }
 }

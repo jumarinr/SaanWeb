@@ -2,6 +2,7 @@ package models;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import util.Mensajes;
@@ -12,13 +13,12 @@ import util.Mensajes;
  */
 public class Grupo {
 
-    public static List<Grupo> grupos = new ArrayList<Grupo>();
-    private short numero;
+    private int numero;
     private Profesor profesor;
     private List<Matricula> matriculas;
     private Materia materia;
 
-    public Grupo(short numero, Profesor profesor, Materia materia) {
+    public Grupo(int numero, Profesor profesor, Materia materia) {
         this.setNumero(numero);
         this.setProfesor(profesor);
         this.setMateria(materia);
@@ -28,11 +28,11 @@ public class Grupo {
     public Grupo() {
     }
 
-    public short getNumero() {
+    public int getNumero() {
         return numero;
     }
 
-    public void setNumero(short numero) {
+    public void setNumero(int numero) {
         if (numero > 0) {
             this.numero = numero;
         }
@@ -68,8 +68,8 @@ public class Grupo {
         }
     }
 
-    public static Grupo buscarGrupo(short num, int idMateria) {
-        for (Grupo grupo : Grupo.grupos) {
+    public static Grupo buscarGrupo(List<Grupo> grupos, int num, int idMateria) {
+        for (Grupo grupo : grupos) {
             if (grupo.getNumero() == num && idMateria == grupo.getMateria().getId()) {
                 return grupo;
             }
@@ -78,12 +78,12 @@ public class Grupo {
 
     }
 
-    public static String registrar(Grupo gr) {
+    public static String registrar(List<Grupo> grupos, Grupo gr) {
         if (gr.getMateria() != null) {
-            if (gr.buscarGrupo(gr.getNumero(), gr.getMateria().getId()) != null || gr.getProfesor() == null || gr.getNumero() <= 0) {
+            if (gr.buscarGrupo(grupos, gr.getNumero(), gr.getMateria().getId()) != null || gr.getProfesor() == null || gr.getNumero() <= 0) {
                 return Mensajes.mensaje.get("err");
             } else {
-                Grupo.grupos.add(gr);
+                grupos.add(gr);
                 gr.getMateria().getGrupos().add(gr);
                 gr.getProfesor().getGrupos().add(gr);
                 return Mensajes.mensaje.get("reg");
@@ -93,23 +93,26 @@ public class Grupo {
         return Mensajes.mensaje.get("err");
     }
 
-    public static String eliminar(short num, int idMateria) {
-        Grupo grupo = Grupo.buscarGrupo(num, idMateria);
+    public static String eliminar(List<Grupo> grupos, List<Matricula> matriculas, List<Nota> notas, int num, int idMateria) {
+        Grupo grupo = Grupo.buscarGrupo(grupos, num, idMateria);
         if (grupo != null) {
-            Matricula.eliminarPorGrupo(num, idMateria);
+            Matricula.eliminarPorGrupo(matriculas, notas, num, idMateria);
             grupo.getMateria().getGrupos().remove(grupo);
             grupo.getProfesor().getGrupos().remove(grupo);
-            Grupo.grupos.remove(grupo);
+            grupos.remove(grupo);
             return Mensajes.mensaje.get("eli");
         } else {
             return Mensajes.mensaje.get("err");
         }
     }
 
-    public static void eliminarPorMateria(int idMateria) {
-        for (Grupo grupo : Grupo.grupos) {
+    public static void eliminarPorMateria(List<Grupo> grupos, List<Matricula> matriculas, List<Nota> notas, int idMateria) {
+        int bor = 0;
+        for (int i = 0; i < grupos.size(); i++) {
+            Grupo grupo = grupos.get(i - bor);
             if (grupo.getMateria().getId() == idMateria) {
-                Grupo.eliminar(grupo.numero, idMateria);
+                Grupo.eliminar(grupos, matriculas, notas, grupo.numero, idMateria);
+                bor++;
             }
         }
     }

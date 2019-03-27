@@ -3,7 +3,7 @@
     Created on : 17/03/2019, 09:27:33 PM
     Author     : pipel
 --%>
-                <%@ include file="header2.jsp" %>
+    <%@ include file="header2.jsp" %>
     <body id="page-top">
         
         <!-- Page Wrapper -->
@@ -13,7 +13,7 @@
             <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
                 <!-- Sidebar - Brand -->
-                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/SAAN">
+                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="./inicio">
                     <div class="sidebar-brand-icon rotate-n-15">
                         <i class="fas fa-laugh-wink"></i>
                     </div>
@@ -34,16 +34,23 @@
 
                 <!-- Mejores grupos -->
                 <li class="nav-item">
-                    <a class="nav-link collapsed" href="#">
+                    <a class="nav-link collapsed" href="./mejoresGrupos">
                         <img class="img-profile rounded-circle" src="https://cdn1.iconfinder.com/data/icons/unigrid-bluetone-human-vol-1/60/011_007_collective_group_masses_people_company-128.png">
                         <span style="font-size: 70%;">${mensaje.get("megru")}</span>
                     </a>
                 </li>
                 <!-- Personas que van perdiendo -->
                 <li class="nav-item">
-                    <a class="nav-link collapsed" href="#">
+                    <a class="nav-link collapsed" href="./estudiantesPerdiendo">
                         <img class="img-profile rounded-circle" src="https://cdn4.iconfinder.com/data/icons/jetflat-2-gestures/60/007_002_no_dislike_disagree_vote_thumbs-down_thumbs_left-128.png">
                         <span style="font-size: 70%;">${mensaje.get("estper")}</span>
+                    </a>
+                </li>
+                <!--Generar datos ficticios-->
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="./datosFicticios">
+                        <img class="img-profile rounded-circle" src="https://cdn2.iconfinder.com/data/icons/ui-data-storage-sever/64/data-storage-add-256.png">
+                        <span style="font-size: 70%;">Generar datos ficticios</span>
                     </a>
                 </li>
 

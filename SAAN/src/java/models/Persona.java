@@ -4,6 +4,7 @@ import util.EnvioDeCorreo;
 import util.Mensajes;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -11,7 +12,6 @@ import java.util.List;
  */
 public class Persona {
 
-    public static List<Persona> administradores = new ArrayList<Persona>();
     private String nombre;
     private long identificacion;
     private String correo;
@@ -67,18 +67,19 @@ public class Persona {
         }
     }
 
-    public static Persona buscarPersona(long identificacion) {
-        for (Persona admin : Persona.administradores) {
+    public static Persona buscarPersona(List<Persona> personas, List<Estudiante> estudiantes,
+            List<Profesor> profesores, long identificacion) {
+        for (Persona admin : personas) {
             if (admin.getIdentificacion() == identificacion) {
                 return admin;
             }
         }
-        for (Persona profe : Profesor.profesores) {
+        for (Persona profe : profesores) {
             if (profe.getIdentificacion() == identificacion) {
                 return profe;
             }
         }
-        for (Persona estu : Estudiante.estudiantes) {
+        for (Persona estu : estudiantes) {
             if (estu.getIdentificacion() == identificacion) {
                 return estu;
             }
@@ -86,18 +87,19 @@ public class Persona {
         return null;
     }
 
-    public static Persona buscarPersona(String correo) {
-        for (Persona admin : Persona.administradores) {
+    public static Persona buscarPersona(List<Persona> personas, List<Estudiante> estudiantes,
+            List<Profesor> profesores, String correo) {
+        for (Persona admin : personas) {
             if (admin.getCorreo().equals(correo)) {
                 return admin;
             }
         }
-        for (Persona profe : Profesor.profesores) {
+        for (Persona profe : profesores) {
             if (profe.getCorreo().equals(correo)) {
                 return profe;
             }
         }
-        for (Persona estu : Estudiante.estudiantes) {
+        for (Persona estu : estudiantes) {
             if (estu.getCorreo().equals(correo)) {
                 return estu;
             }
@@ -105,8 +107,12 @@ public class Persona {
         return null;
     }
 
-    public static String registrar(Persona usuario) {
-        if (Persona.buscarPersona(usuario.getIdentificacion()) != null) {
+    public static String registrar(List<Persona> personas, List<Estudiante> estudiantes,
+            List<Profesor> profesores, Persona usuario) {
+        if (Persona.buscarPersona(personas, estudiantes, profesores, usuario.getIdentificacion()) != null) {
+            return Mensajes.mensaje.get("err");
+        }
+        if (Persona.buscarPersona(personas, estudiantes, profesores, usuario.getCorreo()) != null) {
             return Mensajes.mensaje.get("err");
         }
         if (usuario.getIdentificacion() <= 0 || usuario.getNombre() == null
@@ -114,11 +120,11 @@ public class Persona {
             return Mensajes.mensaje.get("err");
         }
         if (usuario instanceof Profesor) {
-            Profesor.profesores.add((Profesor) usuario);
+            profesores.add((Profesor) usuario);
         } else if (usuario instanceof Estudiante) {
-            Estudiante.estudiantes.add((Estudiante) usuario);
+            estudiantes.add((Estudiante) usuario);
         } else {
-            Persona.administradores.add(usuario);
+            personas.add(usuario);
         }
         return Mensajes.mensaje.get("reg");
     }
@@ -127,59 +133,66 @@ public class Persona {
     devuelve 0 si es administrador, 1 si es estudiante,
     2 si es profesor y -1 si no esta registrado
      */
-    public static byte login(long identificacion, String clave) {
-        Persona usuario = Persona.buscarPersona(identificacion);
-        if (usuario.getClave().equals(clave)) {
-            if (usuario instanceof Profesor) {
-                return 2;
-            } else if (usuario instanceof Estudiante) {
-                return 1;
-            } else {
-                return 0;
+    public static byte login(List<Persona> personas, List<Estudiante> estudiantes,
+            List<Profesor> profesores, long identificacion, String clave) {
+        Persona usuario = Persona.buscarPersona(personas, estudiantes, profesores, identificacion);
+        if (usuario != null) {
+            if (usuario.getClave().equals(clave)) {
+                if (usuario instanceof Profesor) {
+                    return 2;
+                } else if (usuario instanceof Estudiante) {
+                    return 1;
+                } else {
+                    return 0;
+                }
             }
         }
         return -1;
     }
 
-    public static byte login(List<Persona> listaPersona, List<Profesor> listaProfesor,
-            List<Estudiante> listaEstudiante, String correo, String clave) {
-        Persona usuario = Persona.buscarPersona(correo);
-        if (usuario.getClave().equals(clave)) {
-            if (usuario instanceof Profesor) {
-                return 2;
-            } else if (usuario instanceof Estudiante) {
-                return 1;
-            } else {
-                return 0;
+    public static byte login(List<Persona> personas, List<Estudiante> estudiantes,
+            List<Profesor> profesores, String correo, String clave) {
+        Persona usuario = Persona.buscarPersona(personas, estudiantes, profesores, correo);
+        if (usuario != null) {
+            if (usuario.getClave().equals(clave)) {
+                if (usuario instanceof Profesor) {
+                    return 2;
+                } else if (usuario instanceof Estudiante) {
+                    return 1;
+                } else {
+                    return 0;
+                }
             }
         }
         return -1;
     }
 
-    public static String eliminar(long identificacion) {
-        Persona usuario = Persona.buscarPersona(identificacion);
+    public static String eliminar(List<Persona> personas, List<Estudiante> estudiantes,
+            List<Profesor> profesores, long identificacion) {
+        Persona usuario = Persona.buscarPersona(personas, estudiantes, profesores, identificacion);
         if (usuario != null) {
             if (usuario instanceof Profesor) {
-                Profesor.profesores.remove((Profesor) usuario);
+                profesores.remove((Profesor) usuario);
             } else if (usuario instanceof Estudiante) {
-                Estudiante.estudiantes.remove((Estudiante) usuario);
+                estudiantes.remove((Estudiante) usuario);
             } else {
-                Persona.administradores.remove(usuario);
+                personas.remove(usuario);
             }
             return Mensajes.mensaje.get("eli");
         }
         return Mensajes.mensaje.get("err");
     }
 
-    public static String eliminar(String correo) {
-        Persona usuario = Persona.buscarPersona(correo);
+    public static String eliminar(List<Persona> personas, List<Estudiante> estudiantes,
+            List<Profesor> profesores, String correo) {
+        Persona usuario = Persona.buscarPersona(personas, estudiantes, profesores, correo);
         if (usuario != null) {
             if (usuario instanceof Profesor) {
-                Profesor.profesores.remove((Profesor) usuario);
+                profesores.remove((Profesor) usuario);
             } else if (usuario instanceof Estudiante) {
-                Estudiante.estudiantes.remove((Estudiante) usuario);
+                estudiantes.remove((Estudiante) usuario);
             } else {
-                Persona.administradores.remove(usuario);
+                personas.remove(usuario);
             }
             return Mensajes.mensaje.get("eli");
         }
@@ -197,8 +210,8 @@ public class Persona {
         return codigo;
     }
 
-    public static String recuperarContraseña(String codigo,String codigoUsuario, String claveNueva, Persona usuario) {
-        if(codigo.equals(codigoUsuario)){
+    public static String recuperarContraseña(String codigo, String codigoUsuario, String claveNueva, Persona usuario) {
+        if (codigo.equals(codigoUsuario)) {
             usuario.setClave(claveNueva);
             return Mensajes.mensaje.get("mod");
         }
