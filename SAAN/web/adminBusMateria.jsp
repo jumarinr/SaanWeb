@@ -21,59 +21,58 @@
                 <div class="card shadow mb-4">
                     <!-- Card Header - Dropdown -->
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                        <h6 class="m-0 font-weight-bold text-primary">Profesor</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">Materia</h6>
                     </div>
                     <!-- Card Body -->
                     <div style="font-size: 100%" class="card-body">
-                        <c:if test="${not empty usu}">
+                        <c:if test="${not empty mat}">
+                            <h5>Id:</h5>
+                            ${mat.getId()}
+                            <br/><br/>
                             <h5>Nombre:</h5>
-                            ${usu.getNombre()}
+                            ${mat.getNombre()}
                             <br/><br/>
-                            <h5>Documento:</h5>
-                            ${usu.getIdentificacion()}
+                            <h5>Creditos:</h5>
+                            ${mat.getCreditos()}
                             <br/><br/>
-                            <h5>Correo:</h5>
-                            ${usu.getCorreo()}
-                            <br/><br/>
-                            <h5>Contraseña:</h5>
-                            ${usu.getClave()}
-                            <br/><br/>
-                            <h5>Grupos en los que enseña</h5>
-                            <c:if test="${not empty usu.getGrupos()}">
-                                  <table class="table" style="margin-top: -10px;width: auto;">
+                            <h5>Grupos</h5>
+                            <c:if test="${not empty mat.getGrupos()}">
+                                <table class="table" style="margin-top: -10px;width: auto;">
                                     <thead>
                                         <tr>
-                                                   <th scope="col">Codigo Materia</th>
-                                                   <th scope="col">Nombre</th>
-                                                   <th scope="col">Grupo</th>
+                                                   <th scope="col">Numero</th>
+                                                   <th scope="col">Documento Profesor</th>
+                                                   <th scope="col">Nombre Profesor</th>
+                                            <th scope="col">Cantidad de estudiantes</th>
                                                </tr>
                                     </thead>
                                     <tbody>
-                                           <c:forEach items="${usu.getGrupos()}" var="gru">
+                                           <c:forEach items="${mat.getGrupos()}" var="gru">
                                                    <tr>
-                                                           <td><a href="./administrador_buscarMateria?id=${gru.getMateria().getId()}">${gru.getMateria().getId()}</a></td>
-                                                           <td> ${gru.getMateria().getNombre()}</td>
-                                                           <td><a href="./administrador_buscarGrupo?id=${gru.getMateria().getId()}&num=${gru.getNumero()}">${gru.getNumero()}</a></td>
-                                                       </tr>
+                                                           <td><a href="./administrador_buscarGrupo?id=${mat.getId()}&num=${gru.getNumero()}">${gru.getNumero()}</a></td>
+                                                            <td><a href="./administrador_buscarProfesor?id=${gru.getProfesor().getIdentificacion()}">${gru.getProfesor().getIdentificacion()}</a></td>
+                                                            <td>${gru.getProfesor().getNombre()}</td>
+                                                            <td>4{gru.getMatriculas().size()}</td>       
+                                            </tr>
                                                </c:forEach>
                                         </tbody>
                                     </table>
                             </c:if>
-                            <c:if test="${empty usu.getGrupos()}">
+                            <c:if test="${empty mat.getGrupos()}">
                                 Ninguno
                             </c:if>
                             <br/><br/>
-                            <form method="GET" action="./administrador_modificarProfesor">
-                                <input id="doc" name="doc" type="hidden" value="${usu.getIdentificacion()}">
+                            <form method="GET" action="./administrador_modificarMateria">
+                                <input id="id" name="id" type="hidden" value="${mat.getId()}">
                                 <button type="submit" class="btn btn-primary">Modificar</button>
                             </form>
                             <br/>
-                            <form method="POST" action="./administrador_buscarProfesor">
-                                <input id="doc" name="doc" type="hidden" value="${usu.getIdentificacion()}">
+                            <form method="POST" action="./administrador_buscarMateria">
+                                <input id="id" name="id" type="hidden" value="${mat.getId()}">
                                 <button type="submit" class="btn btn-primary">Eliminar</button>
                             </form>  
                         </c:if>
-                        <c:if test="${empty usu}">
+                        <c:if test="${empty mat}">
                             No encontrado    
                         </c:if>
                     </div>
@@ -90,10 +89,10 @@
                     </div>
                     <!-- Card Body -->
                     <div class="card-body">
-                        <form method="GET" action="./administrador_buscarProfesor">
+                        <form method="GET" action="./administrador_buscarMateria">
                             <div class="form-group">
-                                <label for="ide">Identificación o correo</label>
-                                <input type="text" class="form-control" id="id" name="id" placeholder="Ingrese el documento de identidad o correco electronico" required>
+                                <label for="ide">Id</label>
+                                <input type="number" class="form-control" id="id" name="id" placeholder="Ingrese el id" required>
                             </div>
                             <button type="submit" class="btn btn-primary">Buscar</button>
                         </form>                    

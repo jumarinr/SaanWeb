@@ -1,5 +1,6 @@
 package models;
 
+import java.io.BufferedWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.File;
@@ -7,6 +8,10 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.io.FileWriter;   // Import the FileWriter class
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import util.Mensajes;
 
 /**
@@ -70,13 +75,9 @@ public class Materia {
         }
     }
 
-    @Override
-    public String toString() {
-        return "Materia{" + "id=" + id + ", nombre=" + nombre + ", creditos=" + creditos + ", grupos=" + grupos + '}';
-    }
-
     public static Materia buscarMateria(List<Materia> materias, int id) {
         for (Materia materia : materias) {
+            System.out.println(materia.getId() + " " + id + " " + (materia.getId() == id));
             if (materia.getId() == id) {
                 return materia;
             }
@@ -93,7 +94,7 @@ public class Materia {
         }
         materias.add(materia);
         Materia.guardarCambios(materias);
-        return Mensajes.mensaje.get("err");
+        return Mensajes.mensaje.get("reg");
     }
 
     public static String eliminar(List<Materia> materias, List<Grupo> grupos,
@@ -105,10 +106,10 @@ public class Materia {
             Materia.guardarCambios(materias);
             return Mensajes.mensaje.get("eli");
         }
-        return "err";
+        return Mensajes.mensaje.get("err");
     }
 
-    public static void cargarMaterias(List<Materia> materias) {
+    public static String cargarMaterias(List<Materia> materias) {
         String inf = "";
         int ini = 0;
         int fin = 0;
@@ -127,20 +128,36 @@ public class Materia {
             ini = inf.indexOf("<", fin);
             fin = inf.indexOf(">", ini);
             String[] mat = inf.substring(ini + 1, fin).split(",");
-            materias.add(new Materia(Integer.valueOf(mat[0]), mat[1], Short.valueOf(mat[2])));
+            System.out.println(mat[0] + " " + mat[1] + " " + mat[2]);
+            materias.add(new Materia(Integer.parseInt(mat[0]), mat[1], Integer.parseInt(mat[2])));
         }
+        return "cargado";
     }
 
     public static void guardarCambios(List<Materia> materias) {
+        FileWriter fw = null;
+        String texto = "";
+        //imprime o escribe en el archivo.
+        PrintWriter pw = null;
         try {
-            FileWriter file = new FileWriter("materias.txt");
-            file.write("");
+            fw = new FileWriter("materias.txt");
+            fw.write("");
+            BufferedWriter bw = new BufferedWriter(fw);
             for (Materia materia : materias) {
-                file.write("<" + String.valueOf(materia.getId()) + "," + materia.getNombre() + "," + String.valueOf(materia.getCreditos()) + ">");
+                System.out.println("---");
+                texto += "<" + Integer.toString(materia.getId()) + "," + materia.getNombre() + "," + Integer.toString(materia.getCreditos()) + ">";
             }
-            file.close();
+            bw.write(texto);
+            bw.close();
         } catch (IOException e) {
-            System.out.println("An error occurred.");
+            e.printStackTrace();
+        } finally {
+            try {
+                fw.close();
+            } catch (IOException ex) {
+                Logger.getLogger(Materia.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            System.out.println("5");
         }
     }
 }
