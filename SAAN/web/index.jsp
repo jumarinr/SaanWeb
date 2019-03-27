@@ -34,14 +34,14 @@
 
                 <!-- Mejores grupos -->
                 <li class="nav-item">
-                    <a class="nav-link collapsed" href="#">
+                    <a class="nav-link collapsed" href="./mejoresGrupos">
                         <img class="img-profile rounded-circle" src="https://cdn1.iconfinder.com/data/icons/unigrid-bluetone-human-vol-1/60/011_007_collective_group_masses_people_company-128.png">
                         <span style="font-size: 70%;">${mensaje.get("megru")}</span>
                     </a>
                 </li>
                 <!-- Personas que van perdiendo -->
                 <li class="nav-item">
-                    <a class="nav-link collapsed" href="#">
+                    <a class="nav-link collapsed" href="./estudiantesPerdiendo">
                         <img class="img-profile rounded-circle" src="https://cdn4.iconfinder.com/data/icons/jetflat-2-gestures/60/007_002_no_dislike_disagree_vote_thumbs-down_thumbs_left-128.png">
                         <span style="font-size: 70%;">${mensaje.get("estper")}</span>
                     </a>

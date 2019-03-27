@@ -15,10 +15,8 @@
             <!-- Nested Row within Card Body -->
    
             <div class="row" style="align-items: center;">
-                <div class="col-lg-6 d-none d-lg-block ">
-                    <center>
-                    <img src="https://codigoespagueti.com/wp-content/uploads/2015/05/Gmail-GIF.gif"/>
-                    </center>
+                <div style="width: auto; margin-left: 5%; margin-top: 5%">
+                    <img src="https://media.giphy.com/media/aOften89vRbG/giphy.gif"/>
                 </div>
               <div class="col-lg-6">
                 <div class="p-5">
@@ -38,7 +36,7 @@
                   </form>
                   <hr>
                   <div class="text-center">
-                    <a class="small" href="forgot-password.html">¿Desea recuperar contraseña?</a>
+                    <a class="small" href="./recuperarContrasena">¿Desea recuperar contraseña?</a>
                   </div>
                   <div class="text-center">
                     <a class="small" href="./inicio">Volver a inicio</a>
