@@ -1,7 +1,18 @@
+<%-- 
+    Document   : mejoresGrupos
+    Created on : 27/03/2019, 12:38:07 AM
+    Author     : juann
+--%>
+
+<%-- 
+    Document   : estudiantesPerdiendo
+    Created on : 27/03/2019, 12:17:58 AM
+    Author     : juann
+--%>
 <%--
     Document   : index
     Created on : 17/03/2019, 09:27:33 PM
-    Author     : pipel
+    Author     : juann
 --%>
     <%@ include file="header2.jsp" %>
     <body id="page-top">
@@ -13,7 +24,7 @@
             <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
                 <!-- Sidebar - Brand -->
-                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="./inicio">
+                <a class="sidebar-brand d-flex align-items-center justify-content-center" >
                     <div class="sidebar-brand-icon rotate-n-15">
                         <i class="fas fa-laugh-wink"></i>
                     </div>
@@ -34,7 +45,7 @@
 
                 <!-- Mejores grupos -->
                 <li class="nav-item">
-                    <a class="nav-link collapsed" href="./mejoresGrupos">
+                    <a class="nav-link collapsed" href="./inicio">
                         <img class="img-profile rounded-circle" src="https://cdn1.iconfinder.com/data/icons/unigrid-bluetone-human-vol-1/60/011_007_collective_group_masses_people_company-128.png">
                         <span style="font-size: 70%;">${mensaje.get("megru")}</span>
                     </a>
@@ -69,61 +80,44 @@
 
 
           <!-- Begin Page Content -->
-          <div class="container-fluid">
-
-
-              <!-- Content Row -->
-
-
-              <div class="row">
-
-                  <!-- Area Chart -->
-                  <div class="col-xl-8 col-lg-7">
-                      <div class="card shadow mb-4">
-                          <!-- Card Header - Dropdown -->
-                          <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                              <h6 class="m-0 font-weight-bold text-primary">Integrantes</h6>
-
-                          </div>
-                          <!-- Card Body -->
-
-                          <div style="font-size: 100%" class="card-body">
-                              <ol>
-                                  <li>
-                                      Juan Pablo Moya Alarcón
-                                  </li>
-                                  <li>
-                                      Juan Diego Marin Rodriguez
-                                  </li>
-                                  <li>
-                                      Juan Felipe Usuga Villegas
-                                  </li>
-                                  <li>
-                                      Julian Ospina Murgueitio
-                                  </li>
-
-                              </ol>
-                              <br/><br/>
-                          </div>
-                      </div>
-                  </div>
-
-                  <!-- Pie Chart -->
-                  <div class="col-xl-4 col-lg-5">
-                      <div class="card shadow mb-4">
-                          <!-- Card Header - Dropdown -->
-                          <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                              <h6 class="m-0 font-weight-bold text-primary">SAAN</h6>
-
-                          </div>
-                          <!-- Card Body -->
-                          <div class="card-body">
-                              <img style="width: 96.5%; height: 96%" src="https://codigoespagueti.com/wp-content/uploads/2015/05/Gmail-GIF.gif">
-                          </div>
-                      </div>
-                  </div>
+                 <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>Materia</th>
+                      <th>Grupo</th>
+                      <th>Docente</th>
+                      <th>Identificacion</th>
+                      <th>Promedio</th>
+                      <th>Mejor Nota</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Programacion Orientada a Objetos</td>
+                      <td>1</td>
+                      <td>Daniel Gara</td>
+                      <td>213414</td>
+                      <td>4.1</td>
+                      <td>4.9</td>
+                    </tr>
+                    <tr>
+                      <td>Investigacion de operaciones</td>
+                      <td>2</td>
+                      <td>AWAD</td>
+                      <td>219</td>
+                      <td>3.6</td>
+                      <td>4</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
-
+            </div>
           </div>
           <!-- /.container-fluid -->
 
@@ -133,3 +127,7 @@
       <!-- Footer -->
       <%@ include file="footer.jsp" %>
       
+
+
+
+
