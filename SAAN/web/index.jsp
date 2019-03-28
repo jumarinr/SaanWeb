@@ -129,6 +129,76 @@
 
       </div>
       <!-- End of Main Content -->
+      
+      <!-- more content -->
+      <div id="content" style="font-size: auto;">
+
+        
+          <!--<img style="width: 100%; height: 200%" src="https://codigoespagueti.com/wp-content/uploads/2015/05/Gmail-GIF.gif">--!>
+
+
+          <!-- Begin Page Content -->
+          <div class="container-fluid">
+
+
+              <!-- Content Row -->
+
+
+              <div class="row">
+
+                  <!-- Area Chart -->
+                  <div class="col-xl-8 col-lg-7">
+                      <div class="card shadow mb-4">
+                          <!-- Card Header - Dropdown -->
+                          <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                              <h6 class="m-0 font-weight-bold text-primary">Funcionalidades especiales</h6>
+
+                          </div>
+                          <!-- Card Body -->
+
+                          <div style="font-size: 100%" class="card-body">
+                              <ol>
+                                  <li>
+                                      Enviar correos al actualizar, borrar, modificar y añadir una nota
+                                  </li>
+                                  <li>
+                                      Generar reportes de excel
+                                  </li>
+                                  <li>
+                                      Mostrar los mejores grupos
+                                  </li>
+                                  <li>
+                                      Mostrar los estudiantes que van perdiendo
+                                  </li>
+
+                              </ol>
+                              <br/><br/>
+                          </div>
+                      </div>
+                  </div>
+
+                  <!-- Pie Chart -->
+                  <div class="col-xl-4 col-lg-5">
+                      <div class="card shadow mb-4">
+                          <!-- Card Header - Dropdown -->
+                          <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                              <h6 class="m-0 font-weight-bold text-primary">Recuerden siempre</h6>
+
+                          </div>
+                          <!-- Card Body -->
+                          <div class="card-body">
+                              <p style="font-size: 70%">No robar nunca computadores de los vecinos</p>
+                              <img style="width:51%; height: 50.5%" src="https://media.giphy.com/media/wvQIqJyNBOCjK/giphy.gif">
+                          </div>
+                      </div>
+                  </div>
+              </div>
+
+          </div>
+          <!-- /.container-fluid -->
+
+      </div>
+      <!-- end of more content -->
 
       <!-- Footer -->
       <%@ include file="footer.jsp" %>
